@@ -30,6 +30,12 @@ import UseClickOutsideDemo from "./beginner/hooks/custom/06_useClickOutside";
 import UseToggleDemo from "./beginner/hooks/custom/07_useToggle";
 import UseFormDemo from "./beginner/hooks/custom/08_useForm";
 
+import ControlledVsUncontrolledDemo from "./intermediate/advanced-react/01_ControlledVsUncontrolled";
+import LiftingStateUpDemo from "./intermediate/advanced-react/02_LiftingStateUp";
+import CompositionPatternsDemo from "./intermediate/advanced-react/03_CompositionPatterns";
+import RefsAdvancedDemo from "./intermediate/advanced-react/04_Refs";
+import ContextAPIDemo from "./intermediate/advanced-react/05_ContextAPI";
+
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
 import CRUDApp from "./beginner/practice/03_CRUDApp";
@@ -109,6 +115,18 @@ const App = () => {
       <section><TodoApp /></section>
       <hr />
       <section><CRUDApp /></section>
+
+      <h1>Intermediate — Advanced React</h1>
+      <hr />
+      <section><ControlledVsUncontrolledDemo /></section>
+      <hr />
+      <section><LiftingStateUpDemo /></section>
+      <hr />
+      <section><CompositionPatternsDemo /></section>
+      <hr />
+      <section><RefsAdvancedDemo /></section>
+      <hr />
+      <section><ContextAPIDemo /></section>
 
     </div>
   );
