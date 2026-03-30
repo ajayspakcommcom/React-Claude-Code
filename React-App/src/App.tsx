@@ -1,9 +1,9 @@
-import JSXDemo from "./basics/01_JSX";
-import FunctionalComponentsDemo from "./basics/02_FunctionalComponents";
-import PropsVsStateDemo from "./basics/03_PropsVsState";
-import EventsAndConditionalDemo from "./basics/04_EventsAndConditionalRendering";
-import ListsAndKeysDemo from "./basics/05_ListsAndKeys";
-import BasicFormsDemo from "./basics/06_BasicForms";
+import JSXDemo from "./react-basics/01_JSX";
+import FunctionalComponentsDemo from "./react-basics/02_FunctionalComponents";
+import PropsVsStateDemo from "./react-basics/03_PropsVsState";
+import EventsAndConditionalDemo from "./react-basics/04_EventsAndConditionalRendering";
+import ListsAndKeysDemo from "./react-basics/05_ListsAndKeys";
+import BasicFormsDemo from "./react-basics/06_BasicForms";
 
 const App = () => {
   return (
