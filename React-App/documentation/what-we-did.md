@@ -240,42 +240,131 @@ npm run dev        # → http://localhost:5173
 
 ---
 
+### ✅ INTERMEDIATE — State Management (Complete)
+
+All files in `src/intermediate/state-management/`:
+
+---
+
+#### 01_ContextReducer.tsx — Context + useReducer (no library)
+
+**Demo:** Shopping cart (add, remove, increment, decrement, clear)
+
+| Concept | Detail |
+|---------|--------|
+| Discriminated union | `CartAction` type — TS narrows each `case` in the switch |
+| Pure reducer | `cartReducer(state, action) → newState` — zero side effects, fully testable |
+| Split contexts | `CartStateCtx` + `CartDispatchCtx` — dispatch-only components never re-render on state change |
+| `CartProvider` | Single `useReducer` call, provides both contexts |
+| `useCart()` | Reads state + derives `totalItems`, `totalPrice` |
+| `useCartDispatch()` | Dispatch only — components using this never re-render when cart changes |
+| `memo()` | `ProductList` wrapped in `memo` + uses dispatch only → proven zero re-renders |
+
+**When to use:** Small-medium apps, 1-3 shared slices, no extra dependencies.
+
+---
+
+#### 02_ReduxToolkit.tsx — Redux Toolkit
+
+**Demo:** Counter + Todo list (two slices in one store)
+
+| Concept | Detail |
+|---------|--------|
+| `createSlice()` | `name + initialState + reducers` — generates action creators + reducer in one block |
+| Immer built-in | Write `state.value += 1` — RTK converts to immutable update under the hood |
+| Auto action types | `"counter/increment"`, `"todos/addTodo"` — auto-generated from `name/reducerKey` |
+| `configureStore()` | Combines `counter` + `todos` slices into one store |
+| `Provider` | Wraps demo — gives all children access to the store |
+| `useSelector(s => s.counter)` | Subscribes component, re-renders only when that slice changes |
+| `useDispatch()` | Fires actions: `dispatch(increment())`, `dispatch(addTodo("text"))` |
+| `RootState` + `AppDispatch` | Inferred from store — no manual type maintenance |
+
+**When to use:** Large apps, many slices, complex async, devtools-heavy teams.
+
+---
+
+#### 03_RTKQuery.tsx — RTK Query (built into Redux Toolkit)
+
+**Demo:** Posts CRUD via JSONPlaceholder API (list, get by ID, add, delete)
+
+| Concept | Detail |
+|---------|--------|
+| `createApi()` | Defines API service — `reducerPath`, `baseQuery`, `tagTypes`, `endpoints` |
+| `fetchBaseQuery()` | Thin fetch wrapper — sets base URL |
+| `builder.query<R,A>()` | GET endpoint — auto-fetches, cached by query arg |
+| `builder.mutation<R,A>()` | POST/PATCH/DELETE — triggered manually |
+| `providesTags` | Marks what a query "owns" in cache |
+| `invalidatesTags` | Mutation tells RTK which queries to re-fetch |
+| `useGetPostsQuery()` | `{ data, isLoading, isFetching, isError, refetch }` |
+| `useAddPostMutation()` | `[trigger, { isLoading, isSuccess }]` |
+| `skip` option | Query won't fire until condition is true |
+| Store wiring | `api.reducer` + `api.middleware` added to `configureStore` |
+
+**When to use:** Redux-based projects that need data fetching — replaces manual `useEffect` fetch patterns.
+
+---
+
+#### 04_TanStackQuery.tsx — TanStack Query (React Query)
+
+**Demo:** Posts list, single post lookup, parallel user fetch, pagination, add/update/delete, infinite scroll, prefetch
+
+| Concept | Detail |
+|---------|--------|
+| `QueryClient` + `QueryClientProvider` | Central cache store — created once, wraps the app |
+| `useQuery({ queryKey, queryFn })` | Fetch + cache. Key = cache identity. Same key = no duplicate fetch |
+| `staleTime` + `gcTime` | `staleTime`: how long data is "fresh". `gcTime`: how long unused cache stays in memory |
+| `select` | Transform data inside the query — component re-renders only when selected result changes |
+| `enabled` | Conditional fetch — `enabled: userId !== ""` prevents premature calls |
+| Dependent queries | `enabled: !!postQ.data` — comments query waits for post query to succeed |
+| Parallel queries | Multiple `useQuery` calls in one component — all fire simultaneously |
+| `keepPreviousData` | Old page stays visible while next page loads — no blank flash |
+| `useMutation` — add | `invalidateQueries(["posts"])` triggers list re-fetch after POST |
+| `useMutation` — update | `setQueryData` patches cache directly — no extra network call |
+| `useMutation` — delete | Optimistic update: remove from cache instantly, rollback via `onError` |
+| `cancelQueries` | Cancels in-flight refetches before optimistic update to avoid race conditions |
+| `useInfiniteQuery` | `data.pages` accumulates pages. `getNextPageParam` returns next page arg |
+| `prefetchQuery` | Warms cache on hover — click renders instantly with no spinner |
+| `useQueryClient()` | Access `invalidateQueries`, `setQueryData`, `getQueryData`, `prefetchQuery` in components |
+| `ReactQueryDevtools` | Floating panel — inspect cache, status, staleTime, refetch live |
+
+**When to use:** Any app fetching from REST/GraphQL APIs — the most popular server-state library in the React ecosystem.
+
+---
+
+#### Packages installed
+```bash
+npm install @reduxjs/toolkit react-redux
+npm install @tanstack/react-query @tanstack/react-query-devtools
+```
+`tsconfig.json` — added `"skipLibCheck": true` (required for react-query-devtools type compatibility).
+
+---
+
 ## What's Next
 
-### STEP 1 — State Management (`React-App/src/intermediate/state-management/`)
-
-#### Must Know (do first)
-| Concept | How |
-|---------|-----|
-| Context API (review) | `createContext` + `useContext` — already seen, now as global state pattern |
-| `useReducer` (deeper) | action/reducer pattern — pairs with Context for "poor man's Redux" |
-| Context + useReducer | Combined pattern — real-world global store without a library |
-| Zustand | `npm install zustand` — minimal global store, no Provider needed |
-
-#### Good to Know (do second)
-| Concept | How |
-|---------|-----|
-| Zustand slices | Split large store into domain-specific slices |
-| Zustand with immer | `immer` middleware — mutate draft state directly |
-| Zustand devtools | Redux DevTools integration |
-| Jotai atoms | `npm install jotai` — atomic state, fine-grained reactivity |
-
-#### Advanced (do last)
-| Concept | How |
-|---------|-----|
-| Redux Toolkit | `npm install @reduxjs/toolkit react-redux` — industry standard for large apps |
-| RTK slices | `createSlice` — actions + reducer in one file |
-| RTK Query | Built-in data fetching + caching layer |
-
-### STEP 2 — Remaining Intermediate sections
+### Remaining Intermediate sections
 ```
-⬜ Forms & Validation
+✅ Advanced React
+✅ Routing (File-based + Code-based)
+✅ State Management
+⬜ Forms & Validation  ← NEXT
 ⬜ Styling
 ⬜ Performance
 ⬜ API Integration
 ⬜ Testing (Basics)
 ⬜ Practice
 ```
+
+### Forms & Validation — plan
+All work inside `React-App/src/intermediate/forms-validation/`
+
+| File | Concept |
+|------|---------|
+| `01_ReactHookForm.tsx` | `useForm`, `register`, `handleSubmit`, `formState.errors` |
+| `02_ZodValidation.tsx` | `zodResolver`, schema validation, nested objects, custom rules |
+| `03_AdvancedPatterns.tsx` | `useFieldArray`, `useWatch`, `Controller`, dynamic forms |
+
+Install needed: `npm install react-hook-form zod @hookform/resolvers`
 
 ---
 

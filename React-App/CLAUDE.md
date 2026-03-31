@@ -25,8 +25,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Advanced React — COMPLETE (`src/intermediate/advanced-react/`)
 - [x] Routing — File-based COMPLETE (`React-App-FileRouter/` — separate Vite project)
 - [x] Routing — Code-based COMPLETE (`React-App-CodeRouter/` — separate Vite project)
-- [ ] State Management — IN PROGRESS (Context+Reducer done, next: Redux Toolkit)
-- [ ] Forms & Validation
+- [x] State Management — COMPLETE (`01_ContextReducer`, `02_ReduxToolkit`, `03_RTKQuery`, `04_TanStackQuery`)
+- [ ] Forms & Validation — **NEXT**
 - [ ] Styling
 - [ ] Performance
 - [ ] API Integration
@@ -50,7 +50,8 @@ Claude-Code/
 │       │   ├── hooks/                ← 15 built-in + custom/ (8 custom hooks)
 │       │   └── practice/             ← Counter, Todo, CRUD
 │       └── intermediate/
-│           └── advanced-react/       ← 5 files
+│           ├── advanced-react/       ← 5 files
+│           └── state-management/     ← 4 files (complete)
 │
 ├── React-App-FileRouter/             ← File-based routing (Vite, port 5173)
 │   └── src/
@@ -95,29 +96,51 @@ Claude-Code/
 ## How to Resume in a New Session
 1. Read this file — you now know the current state
 2. Read `documentation/what-we-did.md` for full detail on every file built
-3. Next topic to build: **State Management** (inside `React-App/src/intermediate/`)
-4. After state management → **Forms & Validation**
+3. Next topic to build: **Forms & Validation** (inside `React-App/src/intermediate/`)
+4. After forms → **Styling**
 
 ---
 
-## State Management — Progress
+## State Management — COMPLETE ✅
 
 All work inside `React-App/src/intermediate/state-management/`.
 
 | File | Concept | Status |
 |------|---------|--------|
 | `01_ContextReducer.tsx` | Context + useReducer global store (shopping cart) | ✅ Done |
-| `02_ReduxToolkit.tsx` | `createSlice`, `configureStore`, `useSelector`, `useDispatch` | ⬜ **START HERE** |
-| `03_RTKQuery.tsx` | `createApi`, `fetchBaseQuery`, `useGetQuery`, `useMutation` | ⬜ |
+| `02_ReduxToolkit.tsx` | `createSlice`, `configureStore`, `useSelector`, `useDispatch` | ✅ Done |
+| `03_RTKQuery.tsx` | `createApi`, `fetchBaseQuery`, `builder.query`, `builder.mutation`, cache tags | ✅ Done |
+| `04_TanStackQuery.tsx` | `useQuery`, `useMutation`, `useInfiniteQuery`, prefetch, optimistic updates, devtools | ✅ Done |
 
-### Redux Toolkit — what to build
-- `npm install @reduxjs/toolkit react-redux` (not yet installed)
-- `createSlice({ name, initialState, reducers })` — actions + reducer in one file
-- `configureStore({ reducer })` — set up the store
-- `Provider` from react-redux wrapping the demo
-- `useSelector(state => state.x)` — read state
-- `useDispatch()` + dispatch action — update state
-- Use a **counter + todo** example to show multiple slices
+### What each file demonstrates
+
+**01_ContextReducer** — built-in React, no library needed
+- Discriminated union action types, pure reducer, split state/dispatch contexts, custom hooks, `memo()`
+
+**02_ReduxToolkit** — industry standard for large apps
+- `createSlice` (Immer, auto action types), `configureStore`, `Provider`, `useSelector`, `useDispatch`, typed `RootState`
+
+**03_RTKQuery** — data fetching layer built into RTK
+- `createApi`, `fetchBaseQuery`, `builder.query` + `builder.mutation`, `providesTags` + `invalidatesTags`, `skip`, optimistic delete
+
+**04_TanStackQuery** — most popular server-state library
+- `useQuery` (query keys, staleTime, gcTime, select, enabled, retry, refetchOnWindowFocus)
+- `useMutation` (add POST, update PATCH, delete + optimistic rollback)
+- `useInfiniteQuery` (load more, getNextPageParam)
+- Parallel queries, dependent queries, pagination with `keepPreviousData`
+- `prefetchQuery` (hover to warm cache), `useQueryClient`, `ReactQueryDevtools`
+
+---
+
+## Forms & Validation — NEXT
+
+All work inside `React-App/src/intermediate/forms-validation/`.
+
+| File | Concept | Status |
+|------|---------|--------|
+| `01_ReactHookForm.tsx` | `useForm`, `register`, `handleSubmit`, `formState.errors` | ⬜ **START HERE** |
+| `02_ZodValidation.tsx` | `zodResolver`, schema validation, nested objects, custom rules | ⬜ |
+| `03_AdvancedPatterns.tsx` | `useFieldArray`, `useWatch`, `Controller`, dynamic forms | ⬜ |
 
 ---
 
@@ -148,7 +171,9 @@ All work inside `React-App/src/intermediate/state-management/`.
 
 ## Tech Stack
 - React 18, TypeScript 5, Webpack 5
-- TanStack Router (routing — in React-App-FileRouter)
+- @reduxjs/toolkit, react-redux (Redux Toolkit + RTK Query)
+- @tanstack/react-query, @tanstack/react-query-devtools (TanStack Query)
+- TanStack Router (routing — in React-App-FileRouter / React-App-CodeRouter)
 - Zod (search param validation)
 
 ---
@@ -158,18 +183,22 @@ All work inside `React-App/src/intermediate/state-management/`.
 # Main app
 cd React-App && npm start          # → http://localhost:3000
 
-# Routing app (separate project)
+# File-based routing app
 cd React-App-FileRouter && npm run dev   # → http://localhost:5173
+
+# Code-based routing app
+cd React-App-CodeRouter && npm run dev   # → http://localhost:5173
 ```
 
 ---
 
 ## Progress Log
-| Date       | Topic                          | Status |
-|------------|-------------------------------|--------|
-| 2026-03-30 | Project setup                  | Done   |
-| 2026-03-31 | Beginner — React Basics        | Done   |
-| 2026-03-31 | Beginner — All Hooks (15+8)    | Done   |
-| 2026-03-31 | Beginner — Practice apps       | Done   |
-| 2026-03-31 | Intermediate — Advanced React  | Done   |
-| 2026-03-31 | Intermediate — Routing (all)   | Done   |
+| Date       | Topic                              | Status |
+|------------|------------------------------------|--------|
+| 2026-03-30 | Project setup                      | Done   |
+| 2026-03-31 | Beginner — React Basics            | Done   |
+| 2026-03-31 | Beginner — All Hooks (15+8)        | Done   |
+| 2026-03-31 | Beginner — Practice apps           | Done   |
+| 2026-03-31 | Intermediate — Advanced React      | Done   |
+| 2026-03-31 | Intermediate — Routing (all)       | Done   |
+| 2026-03-31 | Intermediate — State Management    | Done   |

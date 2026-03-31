@@ -31,6 +31,9 @@ import UseToggleDemo from "./beginner/hooks/custom/07_useToggle";
 import UseFormDemo from "./beginner/hooks/custom/08_useForm";
 
 import ContextReducerDemo from "./intermediate/state-management/01_ContextReducer";
+import ReduxToolkitDemo from "./intermediate/state-management/02_ReduxToolkit";
+import RTKQueryDemo from "./intermediate/state-management/03_RTKQuery";
+import TanStackQueryDemo from "./intermediate/state-management/04_TanStackQuery";
 
 import ControlledVsUncontrolledDemo from "./intermediate/advanced-react/01_ControlledVsUncontrolled";
 import LiftingStateUpDemo from "./intermediate/advanced-react/02_LiftingStateUp";
@@ -121,6 +124,12 @@ const App = () => {
       <h1>Intermediate — State Management</h1>
       <hr />
       <section><ContextReducerDemo /></section>
+      <hr />
+      <section><ReduxToolkitDemo /></section>
+      <hr />
+      <section><RTKQueryDemo /></section>
+      <hr />
+      <section><TanStackQueryDemo /></section>
 
       <h1>Intermediate — Advanced React</h1>
       <hr />
