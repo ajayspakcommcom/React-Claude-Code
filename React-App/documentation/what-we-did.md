@@ -213,23 +213,30 @@ npm run dev        # → http://localhost:5173
 
 | Concept | File | Notes |
 |---------|------|-------|
-| `createRootRoute()` | `router.tsx` | Root layout — manual equivalent of `__root.tsx` |
+| `createRootRouteWithContext<T>()` | `router.tsx` | Root layout + typed context for all loaders |
 | `createRoute()` | `router.tsx` | Every route defined explicitly with `getParentRoute` |
 | `addChildren()` | `router.tsx` | Nesting: `usersRoute.addChildren([userDetailRoute])` |
-| `createRouter()` | `router.tsx` | Assembles tree + config (pendingMs, scrollRestoration) |
-| `getRouteApi()` | All page files | Access typed route hooks (loader data, search, params) without circular deps |
+| `createRouter()` + `context` | `router.tsx` | Assembles tree + passes `{ theme: 'light' }` to all loaders |
+| `getRouteApi()` | All page files | Access typed route hooks without circular deps |
 | `beforeLoad` guard | `router.tsx` (dashboardRoute) | Same API as file-based — redirect to login |
-| `loader` + `staleTime` | `router.tsx` (usersRoute) | Fetch before render, cache for 10s |
-| `pendingComponent` | `router.tsx` (usersRoute, userDetailRoute) | Spinner while loader runs |
-| `errorComponent` | `router.tsx` (userDetailRoute) | Per-route error boundary |
+| `loader` + `staleTime` | `router.tsx` (usersRoute, productsRoute) | Fetch before render, cache result |
+| `pendingComponent` | `router.tsx` (multiple routes) | Spinner while loader runs |
+| `errorComponent` | `router.tsx` (userDetailRoute, productDetailRoute) | Per-route error boundary |
 | `validateSearch` + `loaderDeps` | `router.tsx` (productsRoute) | Typed search params with Zod |
-| `useSearch` | `pages/Products.tsx` | Read typed search params via `routeApi.useSearch()` |
-| `useNavigate` | `pages/Contact.tsx` | Programmatic navigation with to/search/params/replace |
-| `useParams` (nested) | `pages/UserDetail.tsx` → `UserBadge` | `useParams({ from: '/users/$userId' })` in child component |
+| Context in loaders | `router.tsx` (productsRoute loader) | `context.theme` — typed via `createRootRouteWithContext` |
+| Parallel loaders | `router.tsx` (productDetailRoute) | `Promise.all([fetchProduct, fetchReviews])` |
+| Route masking | `pages/Products.tsx` | `<Link mask={{ to: '/products', search: {...} }}>` |
+| Lazy routes | `router.tsx` (lazyRoute) + `pages/LazyPage.tsx` | `lazyRouteComponent(() => import(...))` — separate chunk confirmed in build |
+| `useSearch` | `pages/Products.tsx` | `routeApi.useSearch()` — typed category + sort |
+| `useNavigate` | `pages/Contact.tsx` | All variants: to, search, params, replace |
+| `useParams` (nested) | `pages/UserDetail.tsx`, `pages/ProductDetail.tsx` | `useParams({ from })` in child component |
 | `Link activeOptions` | `pages/Products.tsx` | `exact + includeSearch` on category tabs |
+| `scrollRestoration` + `defaultPendingMs` | `router.tsx` (createRouter) | Same config options as file-based |
 
-#### Gotcha learned
-- `getRouteApi('/path')` is the solution to circular dependency: page files want to call `route.useLoaderData()`, but importing the route object from `router.tsx` would create a cycle (router imports the page, page imports the router). `getRouteApi()` avoids this — it looks up the route by path string at runtime, fully typed.
+#### Gotchas learned
+- `getRouteApi('/path')` solves the circular dependency: page files can't import the route object from `router.tsx` (which imports the page) — `getRouteApi()` looks up by path string at runtime, fully typed.
+- `createRootRouteWithContext<T>()` uses **double-call** syntax: `createRootRouteWithContext<RouterContext>()({ component: ... })` — the first call sets the type, the second call sets the options.
+- `lazyRouteComponent` build output: `LazyPage-xxxx.js` is a separate chunk — confirmed in `npm run build` output.
 
 ---
 
