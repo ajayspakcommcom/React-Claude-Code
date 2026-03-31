@@ -25,7 +25,7 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Advanced React — COMPLETE (`src/intermediate/advanced-react/`)
 - [x] Routing — File-based COMPLETE (`React-App-FileRouter/` — separate Vite project)
 - [x] Routing — Code-based COMPLETE (`React-App-CodeRouter/` — separate Vite project)
-- [ ] State Management — **NEXT (start here)**
+- [ ] State Management — IN PROGRESS (Context+Reducer done, next: Redux Toolkit)
 - [ ] Forms & Validation
 - [ ] Styling
 - [ ] Performance
@@ -100,32 +100,24 @@ Claude-Code/
 
 ---
 
-## State Management — What to Build Next
+## State Management — Progress
 
-All work goes inside `React-App/src/intermediate/state-management/`.
+All work inside `React-App/src/intermediate/state-management/`.
 
-### Must Know (do first)
-| Concept | How to implement |
-|---------|-----------------|
-| **Context API** | `createContext` + `useContext` — global state without a library |
-| **useReducer** | Complex local state — action/reducer pattern (like mini-Redux) |
-| **Context + useReducer** | Combine both — the "poor man's Redux" pattern |
-| **Zustand** | `npm install zustand` — minimal global store, no boilerplate |
+| File | Concept | Status |
+|------|---------|--------|
+| `01_ContextReducer.tsx` | Context + useReducer global store (shopping cart) | ✅ Done |
+| `02_ReduxToolkit.tsx` | `createSlice`, `configureStore`, `useSelector`, `useDispatch` | ⬜ **START HERE** |
+| `03_RTKQuery.tsx` | `createApi`, `fetchBaseQuery`, `useGetQuery`, `useMutation` | ⬜ |
 
-### Good to Know (do second)
-| Concept | How to implement |
-|---------|-----------------|
-| **Zustand slices** | Split large store into domain-specific slices |
-| **Zustand with immer** | `immer` middleware — mutate draft state directly |
-| **Zustand devtools** | Redux DevTools integration for Zustand |
-| **Jotai atoms** | `npm install jotai` — atomic state, fine-grained reactivity |
-
-### Advanced (do last)
-| Concept | How to implement |
-|---------|-----------------|
-| **Redux Toolkit** | `npm install @reduxjs/toolkit react-redux` — industry standard for large apps |
-| **RTK slices** | `createSlice` — actions + reducer in one file |
-| **RTK Query** | Built-in data fetching + caching layer |
+### Redux Toolkit — what to build
+- `npm install @reduxjs/toolkit react-redux` (not yet installed)
+- `createSlice({ name, initialState, reducers })` — actions + reducer in one file
+- `configureStore({ reducer })` — set up the store
+- `Provider` from react-redux wrapping the demo
+- `useSelector(state => state.x)` — read state
+- `useDispatch()` + dispatch action — update state
+- Use a **counter + todo** example to show multiple slices
 
 ---
 
