@@ -121,7 +121,7 @@ All files in `src/intermediate/advanced-react/`:
 
 ---
 
-### ✅ INTERMEDIATE — Routing (Complete)
+### ⚠️ INTERMEDIATE — Routing (PARTIAL — resume here next session)
 
 **Decision**: Used TanStack Router (more powerful, 100% type-safe) over React Router.
 **Two modes explored**: Code-based + File-based.
@@ -154,16 +154,43 @@ npm run dev        # → http://localhost:5173
 
 ---
 
-## What's Next (Intermediate — remaining sections)
+## What's Next
 
-From `React-App/documentation/react-roadmap.md`:
+### STEP 1 — Finish TanStack Router remaining concepts (`React-App-FileRouter/`)
 
+#### Must Know (do first)
+| Concept | What to build |
+|---------|--------------|
+| `pendingComponent` | Loading spinner shown while loader is fetching |
+| `errorComponent` | Per-route error boundary UI |
+| `staleTime` on loader | Cache loader data — avoid refetch on revisit |
+| `useNavigate` | Programmatic navigation after form submit |
+| `useParams` | Read dynamic params from deeply nested component |
+| `useSearch` | Read + update typed search params from any component |
+| `Link activeOptions` | Exact active matching, include search in active state |
+
+#### Good to Know (do second)
+| Concept | What to build |
+|---------|--------------|
+| Lazy routes | `lazyRouteComponent()` — code split heavy pages |
+| Scroll restoration | Enable via router config |
+
+#### Advanced (do last)
+| Concept | What to build |
+|---------|--------------|
+| Route masking | Show different URL than actual route (modal pattern) |
+| Parallel loaders | Multiple loaders on one route simultaneously |
+| Context in loaders | Pass auth/theme into `loader` via `router.context` |
+
+---
+
+### STEP 2 — State Management (`React-App/src/intermediate/`)
+- Context + Reducer (deeper)
+- Redux Toolkit
+- RTK Query / React Query
+
+### STEP 3 — Remaining Intermediate sections
 ```
-## 2. Intermediate (Production Ready)
-
-✅ Advanced React
-✅ Routing
-⬜ State Management      ← NEXT
 ⬜ Forms & Validation
 ⬜ Styling
 ⬜ Performance
@@ -172,15 +199,10 @@ From `React-App/documentation/react-roadmap.md`:
 ⬜ Practice
 ```
 
-### Next session — start with State Management:
-- Context + Reducer (already touched — go deeper)
-- Redux Toolkit
-- Async state (RTK Query / React Query)
-
 ---
 
 ## Git & GitHub
 - Remote: https://github.com/ajayspakcommcom/Claude-Code.git
 - Branch: `main`
 - `.gitignore` excludes: `node_modules/`, `dist/`, `build/`
-- Latest commit: `98ceeaf`
+- Latest commit: `449b9b4`
