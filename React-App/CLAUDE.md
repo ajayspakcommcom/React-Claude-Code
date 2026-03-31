@@ -26,8 +26,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Routing — File-based COMPLETE (`React-App-FileRouter/` — separate Vite project)
 - [x] Routing — Code-based COMPLETE (`React-App-CodeRouter/` — separate Vite project)
 - [x] State Management — COMPLETE (`01_ContextReducer`, `02_ReduxToolkit`, `03_RTKQuery`, `04_TanStackQuery`)
-- [ ] Forms & Validation — **NEXT**
-- [ ] Styling
+- [x] Forms & Validation — COMPLETE (`01_ReactHookForm`, `02_ZodValidation`, `03_AdvancedPatterns`)
+- [x] Styling — COMPLETE (`01_CSSModules`, `02_StyledComponents`, `03_TailwindCSS`)
 - [ ] Performance
 - [ ] API Integration
 - [ ] Testing (Basics)
@@ -132,15 +132,27 @@ All work inside `React-App/src/intermediate/state-management/`.
 
 ---
 
-## Forms & Validation — NEXT
+## Forms & Validation — COMPLETE ✅
 
 All work inside `React-App/src/intermediate/forms-validation/`.
 
 | File | Concept | Status |
 |------|---------|--------|
-| `01_ReactHookForm.tsx` | `useForm`, `register`, `handleSubmit`, `formState.errors` | ⬜ **START HERE** |
-| `02_ZodValidation.tsx` | `zodResolver`, schema validation, nested objects, custom rules | ⬜ |
-| `03_AdvancedPatterns.tsx` | `useFieldArray`, `useWatch`, `Controller`, dynamic forms | ⬜ |
+| `01_ReactHookForm.tsx` | `useForm`, `register`, `handleSubmit`, `formState`, `watch`, `reset`, `setValue`, `setError` | ✅ Done |
+| `02_ZodValidation.tsx` | `zodResolver`, nested objects, `z.coerce`, `.refine`, `.superRefine`, `z.infer<T>` | ✅ Done |
+| `03_AdvancedPatterns.tsx` | `useFieldArray`, `useWatch`, `Controller`, `FormProvider`, `useFormContext`, `trigger`, multi-step | ✅ Done |
+| `04_RHFAdvanced.tsx` | `criteriaMode: "all"`, `reValidateMode`, `resetField`, `setFocus`, `shouldUnregister`, `errors.root` | ✅ Done |
+| `05_ZodAdvanced.tsx` | `z.array`, `z.discriminatedUnion`, `z.date`, `z.record`, `.extend/.pick/.omit/.partial/.merge` | ✅ Done |
+
+## Styling — NEXT
+
+All work inside `React-App/src/intermediate/styling/`.
+
+| File | Concept | Status |
+|------|---------|--------|
+| `01_CSSModules.tsx` | Scoped class names, composition, dynamic classes | ⬜ **START HERE** |
+| `02_StyledComponents.tsx` | Tagged template literals, props-based styles, theming | ⬜ |
+| `03_TailwindCSS.tsx` | Utility classes, responsive, dark mode | ⬜ |
 
 ---
 

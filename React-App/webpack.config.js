@@ -13,6 +13,28 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      // CSS Modules — files named *.module.css
+      {
+        test: /\.module\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]--[hash:base64:5]",
+              },
+            },
+          },
+          "postcss-loader",
+        ],
+      },
+      // Global CSS — all other .css files (including Tailwind)
+      {
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
     ],
   },
   plugins: [

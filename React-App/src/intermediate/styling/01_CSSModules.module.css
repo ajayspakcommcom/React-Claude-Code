@@ -1,0 +1,172 @@
+/* CSS Modules — all class names are locally scoped by default
+   Webpack transforms .card → .Card__card--xK3p9 (unique hash)
+   So .card in this file NEVER clashes with .card in another file */
+
+/* ── Base card ───────────────────────────────────────────────── */
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #fff;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 0 6px;
+  color: #333;
+}
+
+.description {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Variant: primary ────────────────────────────────────────── */
+.primary {
+  border-color: #4a90e2;
+  background: #f0f7ff;
+}
+
+.primary .title {
+  color: #1a5fb4;
+}
+
+/* ── Variant: success ────────────────────────────────────────── */
+.success {
+  border-color: #27ae60;
+  background: #f0fff4;
+}
+
+.success .title {
+  color: #1e8449;
+}
+
+/* ── Variant: danger ─────────────────────────────────────────── */
+.danger {
+  border-color: #e74c3c;
+  background: #fff5f5;
+}
+
+.danger .title {
+  color: #c0392b;
+}
+
+/* ── Badge ───────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badgePrimary { background: #4a90e2; color: #fff; }
+.badgeSuccess { background: #27ae60; color: #fff; }
+.badgeDanger  { background: #e74c3c; color: #fff; }
+
+/* ── Button ──────────────────────────────────────────────────── */
+.btn {
+  padding: 7px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btnPrimary { background: #4a90e2; color: #fff; }
+.btnSuccess { background: #27ae60; color: #fff; }
+.btnOutline { background: #fff; color: #4a90e2; border: 1px solid #4a90e2; }
+
+/* ── Form ────────────────────────────────────────────────────── */
+.formGroup {
+  margin-bottom: 12px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.15);
+}
+
+/* Error state — composed with .input */
+.inputError {
+  border-color: #e74c3c;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.15);
+}
+
+.errorText {
+  font-size: 11px;
+  color: #e74c3c;
+  margin: 3px 0 0;
+}
+
+/* ── Composition — composes lets you reuse styles ────────────── */
+/* Instead of repeating .btn styles, compose them */
+.btnLarge {
+  composes: btn;           /* inherits all .btn styles */
+  composes: btnPrimary;    /* inherits colour */
+  padding: 10px 24px;
+  font-size: 15px;
+}
+
+/* ── Grid layout ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.section {
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 0 12px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}

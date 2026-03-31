@@ -35,6 +35,16 @@ import ReduxToolkitDemo from "./intermediate/state-management/02_ReduxToolkit";
 import RTKQueryDemo from "./intermediate/state-management/03_RTKQuery";
 import TanStackQueryDemo from "./intermediate/state-management/04_TanStackQuery";
 
+import ReactHookFormDemo from "./intermediate/forms-validation/01_ReactHookForm";
+import ZodValidationDemo from "./intermediate/forms-validation/02_ZodValidation";
+import AdvancedPatternsDemo from "./intermediate/forms-validation/03_AdvancedPatterns";
+import RHFAdvancedDemo from "./intermediate/forms-validation/04_RHFAdvanced";
+import ZodAdvancedDemo from "./intermediate/forms-validation/05_ZodAdvanced";
+
+import CSSModulesDemo from "./intermediate/styling/01_CSSModules";
+import StyledComponentsDemo from "./intermediate/styling/02_StyledComponents";
+import TailwindCSSDemo from "./intermediate/styling/03_TailwindCSS";
+
 import ControlledVsUncontrolledDemo from "./intermediate/advanced-react/01_ControlledVsUncontrolled";
 import LiftingStateUpDemo from "./intermediate/advanced-react/02_LiftingStateUp";
 import CompositionPatternsDemo from "./intermediate/advanced-react/03_CompositionPatterns";
@@ -130,6 +140,26 @@ const App = () => {
       <section><RTKQueryDemo /></section>
       <hr />
       <section><TanStackQueryDemo /></section>
+
+      <h1>Intermediate — Forms &amp; Validation</h1>
+      <hr />
+      <section><ReactHookFormDemo /></section>
+      <hr />
+      <section><ZodValidationDemo /></section>
+      <hr />
+      <section><AdvancedPatternsDemo /></section>
+      <hr />
+      <section><RHFAdvancedDemo /></section>
+      <hr />
+      <section><ZodAdvancedDemo /></section>
+
+      <h1>Intermediate — Styling</h1>
+      <hr />
+      <section><CSSModulesDemo /></section>
+      <hr />
+      <section><StyledComponentsDemo /></section>
+      <hr />
+      <section><TailwindCSSDemo /></section>
 
       <h1>Intermediate — Advanced React</h1>
       <hr />

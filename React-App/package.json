@@ -6,13 +6,23 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-query": "^5.95.2",
     "@tanstack/react-query-devtools": "^5.95.2",
     "@tanstack/react-router": "^1.161.3",
+    "@types/styled-components": "^5.1.36",
+    "autoprefixer": "^10.4.27",
+    "css-loader": "^7.1.4",
+    "postcss": "^8.5.8",
+    "postcss-loader": "^8.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.72.0",
     "react-redux": "^9.2.0",
+    "style-loader": "^4.0.0",
+    "styled-components": "^6.3.12",
+    "tailwindcss": "^4.2.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {
