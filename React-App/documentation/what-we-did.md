@@ -964,7 +964,99 @@ DashboardApp.tsx                    ← Root: QueryClientProvider + date range p
 ⬜ Practice #3 — Pagination, filters, search  ← NEXT
 ```
 
-After Practice #3 → **Senior level begins**.
+### ✅ INTERMEDIATE — Practice #3 — Pagination, Filters, Search (Complete)
+
+All files in `src/intermediate/practice/product-listing/`
+
+#### Architecture
+```
+product-listing/
+├── types.ts                        ← Product, Filters, SortOption, PaginationMeta, UrlState
+├── api/
+│   └── productApi.ts               ← 120 mock products + server-side filter/sort/paginate
+├── hooks/
+│   ├── useUrlState.ts              ← Sync filters+sort+page to URL query string
+│   └── useProducts.ts              ← React Query with placeholderData + full queryKey
+└── components/
+    ├── SearchBar.tsx               ← Debounced input (300ms)
+    ├── FilterPanel.tsx             ← Category multi-select, price range, rating, in-stock
+    ├── ActiveFilters.tsx           ← Filter chip badges + clear all
+    ├── SortDropdown.tsx            ← Sort options + ProductCard + ProductGrid (one file)
+    └── Pagination.tsx              ← Ellipsis page numbers, prev/next, smooth scroll
+ProductListingApp.tsx               ← Root: QueryClientProvider + layout + data wiring
+```
+
+#### Core concepts and patterns
+
+| Concept | File | Detail |
+|---------|------|--------|
+| **Debounced search** | `SearchBar.tsx` | 300ms `useEffect + setTimeout` debounce — one API call per pause, not per keystroke |
+| **URL state sync** | `useUrlState.ts` | All filters/sort/page live in `URLSearchParams` — shareable links, browser back works |
+| `window.history.replaceState` | `useUrlState.ts` | Update URL without page reload. Filter changes use `replaceState`, page changes use `pushState` (for back button) |
+| `popstate` listener | `useUrlState.ts` | Restores filter state when user hits browser back/forward |
+| `placeholderData: keepPreviousData` | `useProducts.ts` | Old page/filter results stay visible while new fetch runs — no blank flash |
+| `queryKey` includes all filters | `useProducts.ts` | `["products", { filters, sort, page }]` — any filter change triggers correct cache lookup |
+| **Server-side pipeline** | `productApi.ts` | filter → facets → sort → paginate (in that order) |
+| **Facets** | `productApi.ts` | `categoryCounts` computed from filtered results, not total DB — shows only relevant counts |
+| **Multi-select categories** | `FilterPanel.tsx` | Toggle category in/out of `string[]` array |
+| Price range inputs | `FilterPanel.tsx` | Min/max with mutual validation (min ≤ max enforced) |
+| Star rating filter | `FilterPanel.tsx` | Visual star buttons for ≥1★ / ≥2★ / ≥3★ / ≥4★ |
+| **Active filter chips** | `ActiveFilters.tsx` | Each chip removes its own specific filter — not "clear all" |
+| **Ellipsis pagination** | `Pagination.tsx` | Algorithm: always show first, last, current±1, and "…" between gaps |
+| Smooth scroll on page change | `Pagination.tsx` | `window.scrollTo({ top: 0, behavior: "smooth" })` |
+| Accessible pagination | `Pagination.tsx` | `aria-label` on buttons, `aria-current="page"` on active page |
+| Skeleton grid | `SortDropdown.tsx` | 12 bone cards during initial load |
+| Fade on background fetch | `SortDropdown.tsx` | `opacity: 0.6` while `isFetching && !isLoading` (placeholderData visible) |
+| Count badge on filter button | `ProductListingApp.tsx` | `activeFilterCount` derived in `useUrlState` — sum of all active filters |
+| Empty state | `SortDropdown.tsx` | "No products found" with suggestion when filter returns 0 results |
+
+#### Data flow
+```
+User action (search/filter/sort/page)
+  ↓
+useUrlState → setFilters() / setSort() / setPage()
+  ↓
+URL updates (replaceState / pushState)
+  ↓
+React Query queryKey changes → fetchProducts() fires
+  ↓
+placeholderData: old results stay visible
+  ↓
+New results render (grid fades from 0.6 → 1)
+```
+
+---
+
+## What's Next — SENIOR LEVEL 🎉
+
+All Intermediate topics are now complete!
+
+```
+✅ Beginner — COMPLETE
+✅ Intermediate — COMPLETE
+   ✅ Advanced React
+   ✅ Routing (File + Code based)
+   ✅ State Management
+   ✅ Forms & Validation
+   ✅ Styling
+   ✅ Performance
+   ✅ API Integration
+   ✅ Testing (Basics + Enterprise)
+   ✅ Practice #1 — Auth App
+   ✅ Practice #2 — Dashboard with Charts
+   ✅ Practice #3 — Pagination, Filters, Search
+
+⬜ Senior (Architecture & Scale) ← NEXT
+   ⬜ Architecture (feature-based folders, design systems)
+   ⬜ Advanced State (server vs client, caching, optimistic updates)
+   ⬜ Performance Deep (profiling, virtualization, Web Vitals)
+   ⬜ Advanced Patterns (compound components, HOC, render props)
+   ⬜ Testing Advanced (integration, mocking, E2E)
+   ⬜ Accessibility (ARIA, keyboard nav)
+   ⬜ Security (XSS, CSRF, secure auth)
+   ⬜ Code Quality (ESLint, Husky, code reviews)
+   ⬜ Practice (large-scale app, RBAC, micro-frontend intro)
+```
 
 ---
 

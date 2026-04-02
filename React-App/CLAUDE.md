@@ -31,10 +31,10 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Performance — COMPLETE (`01_MemoOptimization`, `02_CodeSplitting`)
 - [x] API Integration — COMPLETE (`01_FetchAPI`, `02_Axios`, `03_ErrorHandling`)
 - [x] Testing (Basics + Enterprise) — COMPLETE (`src/intermediate/testing/`)
-- [ ] Practice
+- [x] Practice — COMPLETE
   - [x] Auth-based app — COMPLETE (`src/intermediate/practice/auth-app/`)
   - [x] Dashboard with charts — COMPLETE (`src/intermediate/practice/dashboard-app/`)
-  - [ ] Pagination, filters, search  ← NEXT
+  - [x] Pagination, filters, search — COMPLETE (`src/intermediate/practice/product-listing/`)
 
 ---
 
