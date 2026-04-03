@@ -1050,8 +1050,8 @@ All Intermediate topics are now complete!
    ✅ Architecture #1 — Feature-Based Folder Structure
    ✅ Architecture #2 — Separation of Concerns
    ⬜ Architecture #3 — Reusable Component Libraries  ← NEXT
-   ⬜ Architecture #3 — Reusable Component Libraries  ← NEXT
-   ⬜ Architecture #4 — Design Systems
+   ✅ Architecture #3 — Reusable Component Libraries
+   ⬜ Architecture #4 — Design Systems  ← NEXT
    ⬜ Advanced State
    ⬜ Performance (Deep)
    ⬜ Advanced Patterns
@@ -1143,6 +1143,46 @@ Each layer has **one reason to change**. Swap REST for GraphQL → only `taskSer
 - Filter by status + priority; sort by due date / priority / created
 - Checkbox toggle (todo ↔ done), delete task
 - Active filter count + reset button
+
+### ✅ Architecture #3 — Reusable Component Libraries (Complete)
+
+All files in `src/senior/architecture/03_ReusableComponentLibrary.tsx` + `src/senior/architecture/component-library/`
+
+#### The 6 Principles
+
+| Principle | Implementation |
+|-----------|---------------|
+| **Consistent API** | Every component uses `variant`, `size`, `disabled`, `style` — predictable across the whole library |
+| **React.forwardRef** | All interactive elements wrapped — callers can `inputRef.current.focus()` |
+| **Compound components** | `Modal.Header` / `Modal.Body` / `Modal.Footer` — context shares `onClose` without prop drilling |
+| **Design tokens** | `tokens.ts` — colors, radii, padding in one file; change it once, whole library updates |
+| **Accessibility baked in** | `useId` links labels, `aria-invalid` on errors, focus trap in modal, Escape key, `role="dialog"` |
+| **Barrel export** | `index.ts` — one import for consumers; internal paths can change freely |
+
+#### Files built
+
+| File | What it demonstrates |
+|------|---------------------|
+| `component-library/types.ts` | `Size`, `Variant`, `Color`, `AlertVariant`, `FormFieldProps` shared types |
+| `component-library/tokens.ts` | `COLOR_MAP`, `VARIANT_BASE`, `ALERT_MAP`, `RADIUS`, `FONT_SIZE`, `BTN_PADDING` |
+| `components/Button.tsx` | `forwardRef`, 5 variants, 3 sizes, loading spinner (SVG), `leftIcon`/`rightIcon`, `fullWidth`, `aria-busy` |
+| `components/Input.tsx` | `forwardRef`, `useId` (React 18), `aria-invalid`, `aria-describedby`, `leadingIcon`/`trailingIcon` |
+| `components/Select.tsx` | `forwardRef`, `useId`, `options[]` array API, error + helper, `placeholder` |
+| `components/Modal.tsx` | Compound: `Modal.Header/Body/Footer`; `ModalContext` for `onClose`; `createPortal`; focus trap; Escape; backdrop click; `role="dialog"`, `aria-modal`, `aria-labelledby` |
+| `components/Alert.tsx` | 4 variants (info/success/warning/error); `role="alert"`; controlled dismissible (parent owns state) |
+| `components/Badge.tsx` | 6 colors via `COLOR_MAP`; `dot` mode; `removable` with `onRemove` |
+| `components/Avatar.tsx` | Image with initials fallback; deterministic color from name; `AvatarGroup` with overlap + overflow count |
+| `component-library/index.ts` | Barrel — all components + types re-exported |
+| `03_ReusableComponentLibrary.tsx` | Two tabs: **Principles** (6 principle cards with code) + **Gallery** (live interactive showcase of all components) |
+
+#### Gallery interactive features
+- **Button**: all 5 variants, 3 sizes, disabled, click-to-load spinner (2s), icon slots, "Focus input" (uses ref to focus Input below)
+- **Input**: controlled validation (min 3 chars), leading/trailing icons, disabled, linked label
+- **Select**: options array, placeholder, disabled
+- **Modal**: info modal (compound layout) + confirm modal (sm size, danger action)
+- **Alert**: all 4 variants, each individually dismissible, reset button when all cleared
+- **Badge**: all 6 colors, dot status indicators, removable tags with reset
+- **Avatar**: 4 sizes, 4 distinct people (each gets deterministic color), AvatarGroup with +2 overflow
 
 ---
 
