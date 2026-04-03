@@ -1046,17 +1046,62 @@ All Intermediate topics are now complete!
    ✅ Practice #2 — Dashboard with Charts
    ✅ Practice #3 — Pagination, Filters, Search
 
-⬜ Senior (Architecture & Scale) ← NEXT
-   ⬜ Architecture (feature-based folders, design systems)
-   ⬜ Advanced State (server vs client, caching, optimistic updates)
-   ⬜ Performance Deep (profiling, virtualization, Web Vitals)
-   ⬜ Advanced Patterns (compound components, HOC, render props)
-   ⬜ Testing Advanced (integration, mocking, E2E)
-   ⬜ Accessibility (ARIA, keyboard nav)
-   ⬜ Security (XSS, CSRF, secure auth)
-   ⬜ Code Quality (ESLint, Husky, code reviews)
-   ⬜ Practice (large-scale app, RBAC, micro-frontend intro)
+✅ Senior (Architecture & Scale) — IN PROGRESS
+   ✅ Architecture #1 — Feature-Based Folder Structure
+   ⬜ Architecture #2 — Separation of Concerns  ← NEXT
+   ⬜ Architecture #3 — Reusable Component Libraries
+   ⬜ Architecture #4 — Design Systems
+   ⬜ Advanced State
+   ⬜ Performance (Deep)
+   ⬜ Advanced Patterns
+   ⬜ Testing (Advanced)
+   ⬜ Accessibility
+   ⬜ Security
+   ⬜ Code Quality
+   ⬜ Practice
 ```
+
+---
+
+## 3. Senior (Architecture & Scale)
+
+### ✅ Architecture #1 — Feature-Based Folder Structure (Complete)
+
+All files in `src/senior/architecture/`
+
+#### The core problem it solves
+
+| Type-Based (beginner) | Feature-Based (senior) |
+|---|---|
+| All components in `/components` | Each feature has its own folder |
+| Work on auth = touch 4 folders | Work on auth = touch 1 folder |
+| No clear boundaries | Barrel `index.ts` = clear public API |
+| Deleting a feature = hunting everywhere | Delete a feature = delete one folder |
+| 300+ files at 50 features | Each folder stays small and focused |
+
+#### File structure
+
+```
+src/senior/architecture/
+├── 01_FeatureBasedStructure.tsx   ← Main demo (Structure tab + Live Demo tab)
+├── features/
+│   ├── auth/     index.ts, types.ts, useAuth.ts, LoginForm.tsx
+│   ├── products/ index.ts, types.ts, useProducts.ts, ProductCard.tsx
+│   └── cart/     index.ts, types.ts, useCart.ts, CartSummary.tsx
+└── shared/
+    ├── ui/       Button.tsx (variants/sizes/loading), Badge.tsx (colors/dot)
+    ├── hooks/    useLocalStorage.ts (used by auth + cart)
+    └── utils/    formatters.ts (currency, number, date, truncate)
+```
+
+#### 4 Golden Rules
+
+| Rule | Detail |
+|------|--------|
+| **Barrel exports** | `import { useAuth } from "../auth"` — never `"../auth/useAuth"` |
+| **Feature isolation** | Features never import each other's internals — app root wires via props |
+| **Shared = 2+ features** | Button used by 3 features → shared. LoginButton only auth → stays in auth/ |
+| **Co-location** | `LoginForm.tsx` + `LoginForm.test.tsx` live in the same `auth/` folder |
 
 ---
 

@@ -92,7 +92,7 @@
 **Goal:** Design maintainable, high-performance systems.
 
 ### Architecture
-- Feature-based folder structure
+- ✅ Feature-based folder structure
 - Separation of concerns
 - Reusable component libraries
 - Design systems

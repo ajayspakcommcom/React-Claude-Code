@@ -15,8 +15,8 @@ Build and explore all React features that are **industry standard**, level by le
 
 ## Current Level
 - [x] Beginner (Foundations) — COMPLETE
-- [ ] Intermediate (Production Ready) — IN PROGRESS
-- [ ] Senior (Architecture & Scale)
+- [x] Intermediate (Production Ready) — COMPLETE
+- [ ] Senior (Architecture & Scale) — IN PROGRESS
 - [ ] Expert (Frontend Engineer / Architect)
 
 ---
@@ -35,6 +35,12 @@ Build and explore all React features that are **industry standard**, level by le
   - [x] Auth-based app — COMPLETE (`src/intermediate/practice/auth-app/`)
   - [x] Dashboard with charts — COMPLETE (`src/intermediate/practice/dashboard-app/`)
   - [x] Pagination, filters, search — COMPLETE (`src/intermediate/practice/product-listing/`)
+
+---
+
+## Senior Progress
+- [x] Architecture #1 — Feature-Based Folder Structure — COMPLETE (`src/senior/architecture/`)
+- [ ] Architecture #2 — Separation of Concerns ← NEXT
 
 ---
 
