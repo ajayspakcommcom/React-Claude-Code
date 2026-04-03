@@ -1055,7 +1055,8 @@ All Intermediate topics are now complete!
    ✅ Advanced State #1 — Server vs Client State
    ✅ Advanced State #2 — Caching Strategies
    ✅ Advanced State #3 — Optimistic Updates
-   ⬜ Performance (Deep) — Render Profiling  ← NEXT
+   ✅ Performance #1 — Render Profiling
+   ⬜ Performance #2 — Virtualization (large lists)  ← NEXT
    ⬜ Advanced State
    ⬜ Performance (Deep)
    ⬜ Advanced Patterns
@@ -1287,6 +1288,27 @@ Files: `src/senior/advanced-state/03_OptimisticUpdates.tsx` + `optimistic/fakeOp
 
 #### Key rule
 Always `cancelQueries` in `onMutate` — if a background refetch completes after your optimistic update, it overwrites your change. Cancelling prevents that race condition.
+
+### ✅ Performance #1 — Render Profiling (Complete)
+
+File: `src/senior/performance/01_RenderProfiling.tsx`
+
+#### Key concepts
+
+| Tool | What it does | When to use |
+|------|-------------|------------|
+| `React.memo(Component)` | Skips re-render if all props shallowly equal | Components that receive the same props often |
+| `useCallback(fn, deps)` | Stable function reference between renders | Functions passed as props to memo'd children |
+| `useMemo(() => val, deps)` | Memoized computed value | Expensive derivations (sorting 10k items, not string concat) |
+
+#### The useCallback trap — most important lesson
+`React.memo` without `useCallback` is almost always useless. If the parent passes `onClick={() => fn(id)}` (inline arrow), memo sees a **new reference every render** and re-renders anyway. Fix: `useCallback(() => fn(id), [id])`.
+
+#### Live demo — 3-column comparison
+- **Column A** (no optimization): click "Update count" (unrelated state) → all 4 cards flash and render count climbs
+- **Column B** (memo trap): has `React.memo` but onClick is still an inline arrow → still re-renders on every parent update
+- **Column C** (memo + useCallback): only the card whose data actually changed flashes — the other 3 stay still
+- **useMemo section**: two computation panels — "Change unrelated state" makes the raw version recompute every time, the memo'd version stays frozen at the same count
 
 ---
 

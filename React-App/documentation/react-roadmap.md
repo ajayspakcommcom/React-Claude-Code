@@ -103,7 +103,7 @@
 - ✅ Optimistic updates
 
 ### Performance (Deep)
-- Render profiling
+- ✅ Render profiling
 - Virtualization (large lists)
 - Web Vitals
 - Bundle analysis

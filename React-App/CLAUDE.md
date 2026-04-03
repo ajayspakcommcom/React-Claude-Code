@@ -46,7 +46,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Advanced State #1 — Server vs Client State — COMPLETE (`src/senior/advanced-state/`)
 - [x] Advanced State #2 — Caching Strategies — COMPLETE (`src/senior/advanced-state/`)
 - [x] Advanced State #3 — Optimistic Updates — COMPLETE (`src/senior/advanced-state/`)
-- [ ] Performance (Deep) — Render Profiling ← NEXT
+- [x] Performance #1 — Render Profiling — COMPLETE (`src/senior/performance/`)
+- [ ] Performance #2 — Virtualization (large lists) ← NEXT
 
 ---
 
