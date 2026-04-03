@@ -98,7 +98,7 @@
 - ✅ Design systems
 
 ### Advanced State
-- Server vs client state
+- ✅ Server vs client state
 - Caching strategies
 - Optimistic updates
 

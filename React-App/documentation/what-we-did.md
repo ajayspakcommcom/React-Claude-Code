@@ -1052,7 +1052,8 @@ All Intermediate topics are now complete!
    ⬜ Architecture #3 — Reusable Component Libraries  ← NEXT
    ✅ Architecture #3 — Reusable Component Libraries
    ✅ Architecture #4 — Design Systems
-   ⬜ Advanced State — Server vs Client State  ← NEXT
+   ✅ Advanced State #1 — Server vs Client State
+   ⬜ Advanced State #2 — Caching Strategies  ← NEXT
    ⬜ Advanced State
    ⬜ Performance (Deep)
    ⬜ Advanced Patterns
@@ -1215,6 +1216,35 @@ All files in `src/senior/architecture/04_DesignSystems.tsx` + `src/senior/archit
 
 #### Key concept: dark mode = zero extra CSS
 Components read `theme.colors.surface` / `theme.colors.border` / `theme.shadows.md`. Toggle the theme → `ThemeContext` updates → all components re-render with new values. No duplicate style blocks, no `[data-theme="dark"]` selectors.
+
+### ✅ Advanced State #1 — Server vs Client State (Complete)
+
+Files: `src/senior/advanced-state/01_ServerVsClientState.tsx` + `server-vs-client/fakeApi.ts`
+
+#### The Core Distinction
+
+| | Client State | Server State |
+|--|--|--|
+| **Owned by** | Browser | Server / DB |
+| **Examples** | Modal open, active tab, search input, theme | Users list, profile, products, notifications |
+| **Right tool** | `useState` / `useReducer` / `Context` | React Query / SWR / RTK Query |
+| **Smell test** | Same on every device? | Different per user/device? |
+
+#### The Smell Test
+"Would this state be different on another device or browser tab?"
+- YES → server state (React Query)
+- NO → client state (useState)
+
+#### 3 tabs in the demo
+
+| Tab | What it shows |
+|-----|--------------|
+| **Concepts** | Client vs server examples table; smell test with 8 real examples; 5-box decision flowchart (local/server/shared/URL/persisted) |
+| **Comparison** | Same user list built two ways side-by-side; "Simulate navigation" button unmounts + remounts both — useState panel refetches, React Query shows cached data instantly; live API call counter |
+| **Live Demo** | Working user management app: `search`, `roleFilter`, `activeTab`, `selected` → `useState` (correct); `allUsers` → `useQuery` with 60s staleTime (correct); annotation bar labels which state is which |
+
+#### Key mistake shown
+Using `useState + useEffect` for server data: no caching, no background sync, 3 components = 3 duplicate requests, 30+ lines of boilerplate. React Query solves all of it in 4 lines.
 
 ---
 

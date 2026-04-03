@@ -43,7 +43,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Architecture #2 — Separation of Concerns — COMPLETE (`src/senior/architecture/soc/`)
 - [x] Architecture #3 — Reusable Component Libraries — COMPLETE (`src/senior/architecture/component-library/`)
 - [x] Architecture #4 — Design Systems — COMPLETE (`src/senior/architecture/design-system/`)
-- [ ] Advanced State — Server vs Client State ← NEXT
+- [x] Advanced State #1 — Server vs Client State — COMPLETE (`src/senior/advanced-state/`)
+- [ ] Advanced State #2 — Caching Strategies ← NEXT
 
 ---
 
