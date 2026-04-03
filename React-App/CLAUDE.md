@@ -42,7 +42,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Architecture #1 — Feature-Based Folder Structure — COMPLETE (`src/senior/architecture/`)
 - [x] Architecture #2 — Separation of Concerns — COMPLETE (`src/senior/architecture/soc/`)
 - [x] Architecture #3 — Reusable Component Libraries — COMPLETE (`src/senior/architecture/component-library/`)
-- [ ] Architecture #4 — Design Systems ← NEXT
+- [x] Architecture #4 — Design Systems — COMPLETE (`src/senior/architecture/design-system/`)
+- [ ] Advanced State — Server vs Client State ← NEXT
 
 ---
 

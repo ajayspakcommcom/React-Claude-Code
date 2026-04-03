@@ -95,7 +95,7 @@
 - ✅ Feature-based folder structure
 - ✅ Separation of concerns
 - ✅ Reusable component libraries
-- Design systems
+- ✅ Design systems
 
 ### Advanced State
 - Server vs client state

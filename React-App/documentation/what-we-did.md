@@ -1051,7 +1051,8 @@ All Intermediate topics are now complete!
    ✅ Architecture #2 — Separation of Concerns
    ⬜ Architecture #3 — Reusable Component Libraries  ← NEXT
    ✅ Architecture #3 — Reusable Component Libraries
-   ⬜ Architecture #4 — Design Systems  ← NEXT
+   ✅ Architecture #4 — Design Systems
+   ⬜ Advanced State — Server vs Client State  ← NEXT
    ⬜ Advanced State
    ⬜ Performance (Deep)
    ⬜ Advanced Patterns
@@ -1183,6 +1184,37 @@ All files in `src/senior/architecture/03_ReusableComponentLibrary.tsx` + `src/se
 - **Alert**: all 4 variants, each individually dismissible, reset button when all cleared
 - **Badge**: all 6 colors, dot status indicators, removable tags with reset
 - **Avatar**: 4 sizes, 4 distinct people (each gets deterministic color), AvatarGroup with +2 overflow
+
+### ✅ Architecture #4 — Design Systems (Complete)
+
+All files in `src/senior/architecture/04_DesignSystems.tsx` + `src/senior/architecture/design-system/`
+
+#### The 3-Level Token Hierarchy
+
+| Level | File | Named after | Example |
+|-------|------|------------|---------|
+| **Global** | `tokens/colors.ts` | What they ARE | `palette.blue[500] = "#3b82f6"` |
+| **Semantic** | `tokens/colors.ts` | What they MEAN | `semantic.primary = palette.blue[500]` |
+| **Theme** | `theme/themes.ts` | Where they're USED | `theme.colors.surface` (white → slate-800 in dark) |
+
+#### Files built
+
+| File | What it covers |
+|------|---------------|
+| `tokens/colors.ts` | Full 10-stop palette (blue/green/red/yellow/purple/gray 50→900) + semantic layer (`primary`, `success`, `warning`, `danger`) |
+| `tokens/typography.ts` | `fontSizes`, `fontWeights`, `lineHeights`, `letterSpacings`, `fontFamilies`; 9 named `TEXT_VARIANTS` (display → code) |
+| `tokens/spacing.ts` | 4px-base `space` map (0.5→32); `radii` map; `SPACE_SCALE` array for the explorer |
+| `tokens/shadows.ts` | 5 elevation levels + dark-mode equivalents |
+| `theme/themes.ts` | `Theme` interface; `lightTheme` + `darkTheme` — both map the same semantic names to different values |
+| `theme/ThemeContext.tsx` | `ThemeProvider` (`defaultDark` prop); `useTheme()` hook returning `{ theme, isDark, toggleTheme }` |
+| `primitives/Text.tsx` | `variant` (display/heading/title/subheading/body/caption/label/code); `color` (default/muted/primary/success/warning/danger/inverse); `as` prop for semantic HTML |
+| `primitives/Stack.tsx` | `direction`, `gap` (space token key), `align`, `justify`, `wrap`; `HStack` + `VStack` convenience shortcuts |
+| `primitives/Card.tsx` | `variant` (default/outline/elevated); `padding`/`shadow`/`radius` from token keys; all colors from `useTheme()` |
+| `design-system/index.ts` | Barrel — all exports in one place |
+| `04_DesignSystems.tsx` | Three tabs: **Pipeline** (3-level hierarchy + 4 principle cards), **Tokens** (color palette explorer, type scale, spacing bars), **Themes** (live light/dark toggle — profile card, stats, semantic color swatches all update instantly) |
+
+#### Key concept: dark mode = zero extra CSS
+Components read `theme.colors.surface` / `theme.colors.border` / `theme.shadows.md`. Toggle the theme → `ThemeContext` updates → all components re-render with new values. No duplicate style blocks, no `[data-theme="dark"]` selectors.
 
 ---
 
