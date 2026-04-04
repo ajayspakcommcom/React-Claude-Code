@@ -1427,6 +1427,62 @@ const handleChange = (e) => {
   - **INP Demo** — toggle between blocking and `startTransition` mode, filter 5,000 items, feel the input responsiveness difference; `isPending` indicator shows deferred render in progress
   - **CLS Demo** — side-by-side: bad (no space reserved, text jumps) vs good (aspect-ratio skeleton, text stays still)
 
+### ✅ Performance #4 — Bundle Analysis (Complete)
+
+File: `src/senior/performance/04_BundleAnalysis.tsx`
+Also updated: `webpack.config.js` (added BundleAnalyzerPlugin, splitChunks, contenthash output)
+
+#### The three bundle problems
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| Too big | Unused deps, heavy libs | Tree shaking, switch to lighter alternatives |
+| Wrong shape | Single file, can't cache parts | Code splitting + `splitChunks` |
+| Hidden bloat | Importing 2KB but getting 65KB of extras | `webpack-bundle-analyzer` to see inside chunks |
+
+#### webpack-bundle-analyzer
+```bash
+npm install --save-dev webpack-bundle-analyzer
+ANALYZE=true npm run build   # opens interactive treemap in browser
+```
+Treemap shows every module inside every chunk — size in bytes, where it came from, and which are the biggest offenders.
+
+#### Code splitting with React.lazy
+```tsx
+const Dashboard = React.lazy(() => import('./Dashboard'));
+
+<Suspense fallback={<Spinner />}>
+  <Dashboard />
+</Suspense>
+```
+Webpack creates a separate `dashboard.chunk.js` file. Browser downloads it only when the user first visits that route.
+
+#### splitChunks — vendor/react separation
+- **react-vendor chunk**: React + ReactDOM — never changes between your deploys → browser caches forever
+- **vendors chunk**: other npm packages — changes rarely
+- **main chunk**: your code — small, re-downloaded on every deploy
+- **contenthash filenames**: `[name].[contenthash:8].js` — hash changes only when content changes → safe to cache with `Cache-Control: max-age=31536000`
+
+Before splitting: one `bundle.js` (2.8MB), re-downloaded every deploy
+After splitting: only `main.[hash].js` (48KB) re-downloaded; vendor chunks served from browser cache
+
+#### Tree shaking — import style matters
+| Import | Result |
+|--------|--------|
+| `import { debounce } from 'lodash'` | **71KB** — entire lodash bundled |
+| `import debounce from 'lodash/debounce'` | **2KB** — only debounce |
+| `import { format } from 'date-fns'` | **~2KB** — tree-shakeable |
+| `import moment from 'moment'` | **67KB** — all locales included |
+
+#### Top offenders & fixes
+- **moment.js** (67KB) → switch to `date-fns` (tree-shakeable, pay per function)
+- **lodash** (71KB) → use path imports: `lodash/debounce`
+- **react-icons** → import from `react-icons/fi` not `react-icons`
+- **@mui/material** → deep path imports: `@mui/material/Button`
+
+#### Live demo features
+- **Concepts tab**: 4-problem overview cards, bundle shape before/after bar chart (toggle to see chunk split + cache savings), tree shaking visualizer (toggle import style → watch included KB change), full `webpack.config.js` code snippet
+- **Demo tab**: `React.lazy` + `Suspense` live demo with event log (watch chunk load sequence), top offenders accordion (expand any lib → bad import vs fix side-by-side)
+
 ---
 
 ## Git & GitHub
