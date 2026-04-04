@@ -61,6 +61,7 @@ import ContextAPIDemo from "./intermediate/advanced-react/05_ContextAPI";
 import RenderProfilingDemo from "./senior/performance/01_RenderProfiling";
 import VirtualizationDemo from "./senior/performance/02_Virtualization";
 import { WebVitals } from "./senior/performance/03_WebVitals";
+import { BundleAnalysis } from "./senior/performance/04_BundleAnalysis";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -205,6 +206,8 @@ const App = () => {
       <section><VirtualizationDemo /></section>
       <hr />
       <section><WebVitals /></section>
+      <hr />
+      <section><BundleAnalysis /></section>
 
     </div>
   );
