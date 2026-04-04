@@ -64,6 +64,7 @@ import { WebVitals } from "./senior/performance/03_WebVitals";
 import { BundleAnalysis } from "./senior/performance/04_BundleAnalysis";
 import CompoundComponents from "./senior/advanced-patterns/01_CompoundComponents";
 import RenderProps from "./senior/advanced-patterns/02_RenderProps";
+import HOC from "./senior/advanced-patterns/03_HOC";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -216,6 +217,8 @@ const App = () => {
       <section><CompoundComponents /></section>
       <hr />
       <section><RenderProps /></section>
+      <hr />
+      <section><HOC /></section>
 
     </div>
   );
