@@ -57,7 +57,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Testing (Advanced) #1 — Integration Tests — COMPLETE (`src/senior/testing/`)
 - [x] Testing (Advanced) #2 — Mocking APIs — COMPLETE (`src/senior/testing/`)
 - [x] Testing (Advanced) #3 — E2E (Playwright) — COMPLETE (`e2e/`)
-- [ ] Accessibility #1 — ARIA & Semantic HTML ← NEXT
+- [x] Accessibility — ARIA, Keyboard Navigation, Screen Readers — COMPLETE (`src/senior/accessibility/`)
+- [ ] Security #1 — XSS Prevention ← NEXT
 
 ---
 

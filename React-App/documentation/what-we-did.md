@@ -1687,6 +1687,47 @@ npm run test:e2e:headed   # watch in browser
 
 Total new tests: **26 Jest + 16 Playwright = 42 tests** | Full suite: **146 Jest tests passing**
 
+### ✅ Accessibility — ARIA, Keyboard Navigation, Screen Readers (Complete)
+
+Files:
+- `src/senior/accessibility/01_Accessibility.test.tsx` — 25 tests across 5 describe blocks
+- `src/senior/accessibility/AccessibilityExplainer.tsx` — visual explainer + 4 live demos
+
+#### Three Pillars
+
+| Pillar | What it covers |
+|--------|---------------|
+| ARIA & Semantic HTML | Roles, names, states — use real HTML elements first, ARIA fills gaps |
+| Keyboard Navigation | Tab order, arrow-key widgets, focus trap, focus restoration |
+| Screen Readers | Live regions (`aria-live`), role=alert, aria-describedby hints |
+
+#### ARIA Golden Rules
+1. Semantic HTML first — `<button>` beats `role="button"` on a `<div>`
+2. Every interactive element needs an accessible name (label, aria-label, or aria-labelledby)
+3. Communicate state: `aria-expanded`, `aria-selected`, `aria-checked`, `aria-invalid`, `aria-disabled`
+4. Communicate live changes: `role="status"` (polite) or `role="alert"` (assertive)
+5. Describe relationships: `aria-controls`, `aria-describedby`, `aria-labelledby`
+
+#### Keyboard patterns
+- **Tab** — move between interactive elements; **Shift+Tab** — backwards
+- **Arrow keys** — navigate within widgets (tabs, radio, listbox)
+- **Escape** — close dialog/dropdown
+- **Focus trap** — while modal is open, Tab stays inside
+- **Focus restoration** — when modal closes, return focus to the trigger
+
+#### Test coverage (25 tests)
+- **jest-axe audits** — `toHaveNoViolations()` on form, tabs, live region, toggle; two bad components that intentionally fail
+- **ARIA states** — `aria-invalid` changes on validation, `aria-describedby` links input to error, `aria-selected`/`aria-controls` on tabs, modal `aria-modal` + `aria-labelledby`, switch `aria-checked`
+- **Keyboard navigation** — Tab order through form, Arrow keys between tabs, Home/End, Escape closes modal, focus trapped inside modal, form submits on Enter
+- **Screen reader** — `role="status"` announces cart updates, `role="alert"` fires on validation errors, sr-only content present in DOM
+- **Accessible queries** — `getByRole`, `getByLabelText` preferred over testId
+
+#### Live demos (in app)
+- Semantic HTML vs div soup — toggle to see what screen reader hears in each case
+- ARIA States live — aria-expanded, aria-checked, aria-selected, aria-busy all interactive
+- Focus Trap modal — Tab key stays inside, Escape closes, focus log shows events
+- Live Regions — polite (cart update) vs assertive (payment error) announced by screen reader
+
 ---
 
 ## Git & GitHub

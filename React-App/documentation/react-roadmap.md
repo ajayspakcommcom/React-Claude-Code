@@ -120,9 +120,9 @@
 - ✅ E2E (Playwright / Cypress)
 
 ### Accessibility
-- ARIA
-- Keyboard navigation
-- Screen readers
+- ✅ ARIA
+- ✅ Keyboard navigation
+- ✅ Screen readers
 
 ### Security
 - XSS prevention
