@@ -67,6 +67,7 @@ import RenderProps from "./senior/advanced-patterns/02_RenderProps";
 import HOC from "./senior/advanced-patterns/03_HOC";
 import CustomHooks from "./senior/advanced-patterns/04_CustomHooks";
 import { TestingExplainer } from "./senior/testing/TestingExplainer";
+import { AccessibilityExplainer } from "./senior/accessibility/AccessibilityExplainer";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -227,6 +228,10 @@ const App = () => {
       <h1>Senior — Testing (Advanced)</h1>
       <hr />
       <section><TestingExplainer /></section>
+
+      <h1>Senior — Accessibility</h1>
+      <hr />
+      <section><AccessibilityExplainer /></section>
 
     </div>
   );
