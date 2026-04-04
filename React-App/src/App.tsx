@@ -63,6 +63,7 @@ import VirtualizationDemo from "./senior/performance/02_Virtualization";
 import { WebVitals } from "./senior/performance/03_WebVitals";
 import { BundleAnalysis } from "./senior/performance/04_BundleAnalysis";
 import CompoundComponents from "./senior/advanced-patterns/01_CompoundComponents";
+import RenderProps from "./senior/advanced-patterns/02_RenderProps";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -213,6 +214,8 @@ const App = () => {
       <h1>Senior — Advanced Patterns</h1>
       <hr />
       <section><CompoundComponents /></section>
+      <hr />
+      <section><RenderProps /></section>
 
     </div>
   );
