@@ -109,7 +109,7 @@
 - ✅ Bundle analysis
 
 ### Advanced Patterns
-- Compound components
+- ✅ Compound components
 - Render props
 - Higher-order components (HOC)
 - Custom hooks

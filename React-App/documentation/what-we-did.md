@@ -1483,6 +1483,47 @@ After splitting: only `main.[hash].js` (48KB) re-downloaded; vendor chunks serve
 - **Concepts tab**: 4-problem overview cards, bundle shape before/after bar chart (toggle to see chunk split + cache savings), tree shaking visualizer (toggle import style → watch included KB change), full `webpack.config.js` code snippet
 - **Demo tab**: `React.lazy` + `Suspense` live demo with event log (watch chunk load sequence), top offenders accordion (expand any lib → bad import vs fix side-by-side)
 
+### ✅ Advanced Patterns #1 — Compound Components (Complete)
+
+File: `src/senior/advanced-patterns/01_CompoundComponents.tsx`
+
+#### What it is
+A pattern where a parent component owns shared state and exposes a set of child components that communicate with it through React Context — not props. The caller assembles the pieces in any layout they want.
+
+#### How it works (4 steps)
+1. Create a Context to hold shared state (`active` tab, `open` accordion item, etc.)
+2. Root component provides state via `Context.Provider`, renders `{children}`
+3. Child components read from context — no props needed between parent and child
+4. Attach children to parent with `Object.assign`:
+```tsx
+export const Tabs = Object.assign(TabsRoot, {
+  List: TabsList,
+  Tab: TabsTab,
+  Panel: TabsPanel,
+});
+// Caller: <Tabs.Tab id="a">One</Tabs.Tab>
+```
+
+#### Prop-driven vs Compound
+| | Prop-driven | Compound |
+|-|-------------|----------|
+| Layout control | Fixed — defined by component | Full — caller decides |
+| Add extra elements | Can't insert between tabs | Freely mix in any JSX |
+| State location | Caller manages or buried in props | Root component owns it |
+| Import | 4 separate named imports | One import, dot notation |
+
+#### Three live examples built
+- **Tabs** — `TabsRoot` + `TabsList` + `TabsTab` + `TabsPanel`, `aria-selected` / `aria-controls` / `role="tabpanel"`, disabled tab support
+- **Accordion** — single-open and multiple-open modes via `multiple` prop on root, `aria-expanded` / `aria-controls`, animated chevron
+- **Custom Select** — `SelectTrigger` + `SelectList` + `SelectOption`, close-on-outside-click via `useEffect` + `mousedown` listener, `role="listbox"` / `role="option"` / `aria-selected`
+
+#### Key rule
+The parent renders `{children}` and never inspects them — it just provides Context. Children opt in by calling `useContext`. This is what gives callers layout freedom.
+
+#### When to use / skip
+- **Use**: caller needs layout control, 2+ sub-components share one state, prop-drilling across 2+ levels
+- **Skip**: simple one-off component, sub-components are never used independently
+
 ---
 
 ## Git & GitHub
