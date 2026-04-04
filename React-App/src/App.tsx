@@ -65,6 +65,7 @@ import { BundleAnalysis } from "./senior/performance/04_BundleAnalysis";
 import CompoundComponents from "./senior/advanced-patterns/01_CompoundComponents";
 import RenderProps from "./senior/advanced-patterns/02_RenderProps";
 import HOC from "./senior/advanced-patterns/03_HOC";
+import CustomHooks from "./senior/advanced-patterns/04_CustomHooks";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -219,6 +220,8 @@ const App = () => {
       <section><RenderProps /></section>
       <hr />
       <section><HOC /></section>
+      <hr />
+      <section><CustomHooks /></section>
 
     </div>
   );
