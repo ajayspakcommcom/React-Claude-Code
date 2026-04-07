@@ -73,6 +73,7 @@ import { CodeQualityExplainer } from "./senior/code-quality/CodeQualityExplainer
 import { TeamDeskApp } from "./senior/practice/SeniorPracticeApp";
 import { InternalsExplainer } from "./expert/internals/InternalsExplainer";
 import { AdvancedRenderingExplainer } from "./expert/advanced-rendering/AdvancedRenderingExplainer";
+import { FrameworkMasteryExplainer } from "./expert/framework-mastery/FrameworkMasteryExplainer";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -257,6 +258,10 @@ const App = () => {
       <h1>Expert — Advanced Rendering</h1>
       <hr />
       <section><AdvancedRenderingExplainer /></section>
+
+      <h1>Expert — Framework Mastery</h1>
+      <hr />
+      <section><FrameworkMasteryExplainer /></section>
 
     </div>
   );
