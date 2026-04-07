@@ -2046,3 +2046,62 @@ Files:
 - **Server Components** (8 tests) — async fetch + render, server→client interactive props, cache() deduplication, cache() different args = two fetches, Server Action create + validate, Server Action client form submit, duplicate slug error
 - **Middleware & Edge Runtime** (9 tests) — auth redirect, auth pass-through, A/B variant B rewrite, A/B variant A pass-through, geo block, rate limit headers, edge Web APIs available, Node built-ins unavailable, streaming at edge
 - **Metadata & route patterns** (5 tests) — generateMetadata known slug, not-found fallback, OpenGraph data, route segment config, parallel routes independent load
+
+### ✅ Expert — Performance at Scale: Memory, Browser Rendering, Advanced Caching (Complete)
+
+Files:
+- `src/expert/performance-at-scale/01_PerformanceAtScale.test.tsx` — 36 tests across 3 describe blocks
+- `src/expert/performance-at-scale/PerformanceAtScaleExplainer.tsx` — visual explainer + 3 tabbed demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| Memory Optimization | LRU cache, useEffect cleanup (setInterval/event listeners), unbounded Map leak, WeakRef concepts |
+| Browser Rendering Pipeline | CRP stages, layout cost by CSS property, layout thrashing, `requestAnimationFrame` |
+| Advanced Caching | HTTP Cache-Control directives, SWR pattern, ETag/conditional requests, CDN/Vary header |
+
+#### Key concepts
+
+**LRU Cache:**
+- `Map` preserves insertion order → first key = LRU (evict next)
+- `get()` deletes + re-inserts to move entry to MRU position
+- `set()` evicts oldest key when at capacity
+- Core pattern in React Query, Apollo, webpack chunk manifests
+
+**Memory leak patterns:**
+- `setInterval` / `setTimeout` without `clearInterval` / `clearTimeout` in cleanup
+- `window.addEventListener` without `removeEventListener` on unmount
+- Unbounded `Map`/`Set` growing without eviction policy
+- Stale closures retaining large objects; detached DOM node references
+
+**Browser CRP (Critical Rendering Path):** HTML → DOM → CSSOM → Render Tree → Layout → Paint → Composite
+
+**Layout cost:**
+- `transform` / `opacity` → Composite only (GPU, cheapest — animate these)
+- `color` / `background-color` → Paint + Composite
+- `width` / `height` / `margin` / `font-size` → Layout + Paint + Composite (most expensive)
+
+**Layout thrashing:** Reading a layout property after a DOM write forces synchronous reflow. Fix: batch all reads first, then all writes. Use `requestAnimationFrame` to align DOM work to paint cycle.
+
+**HTTP Cache-Control directives:**
+- `no-store` → never cache
+- `no-cache` → cache but always revalidate (uses 304)
+- `max-age=N` → browser cache for N seconds
+- `s-maxage=N` → CDN cache TTL (overrides max-age at shared caches)
+- `stale-while-revalidate=N` → SWR: serve stale + background refresh
+- `immutable` → never revalidate (pair with content-hashed filenames)
+
+**SWR pattern:** Serve stale content immediately (fast TTFB) while refreshing in background. Next.js ISR and TanStack Query both implement this.
+
+**ETag / conditional requests:** Server returns `ETag: "hash"`. Client sends `If-None-Match: "hash"`. If unchanged → `304 Not Modified` (no body). Saves bandwidth.
+
+**Vary header:** Tells CDN which request headers affect response — separate cache entry per unique value. `Vary: Cookie` disables CDN caching (avoid for public content).
+
+#### Notable implementation detail
+`<T>` in arrow function generics in `.tsx` files is parsed as JSX. Fixed with trailing comma: `const fn = <T,>(arg: T) => ...`
+
+#### Test coverage (36 tests)
+- **Memory** (7 tests) — LRU evicts LRU entry, preserves MRU order, re-insert moves to MRU, setInterval cleanup prevents leak, event listener removed on unmount, listener leaks when no cleanup, useLRUCache hook bounded
+- **Browser rendering** (9 tests) — CRP has 7 stages in order, each stage has description, transform/opacity → composite-only, color/background → paint, width/height → layout+paint, batched layout = 1 reflow, thrashing = N reflows, rAF cleanup on unmount, inactive rAF = no frames
+- **Advanced caching** (20 tests) — no-store parse, max-age + s-maxage parse, stale-while-revalidate parse, immutable + private parse, strategy resolution (no-cache/browser-only/immutable/swr/cdn-short/cdn-long), SWR fresh/stale/miss/no-double-fetch, ETag 200/304/stale-etag-200, Vary CDN keys (encoding/language/same=hit)
