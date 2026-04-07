@@ -1778,6 +1778,64 @@ Files:
 
 ---
 
+### ✅ Code Quality — ESLint + Prettier, Husky + lint-staged, Code Reviews (Complete)
+
+Files:
+- `eslint.config.js` — ESLint flat config (v9), TypeScript + React + a11y rules
+- `.prettierrc` — Prettier settings (printWidth 100, trailingComma es5, arrowParens avoid)
+- `.prettierignore` — excludes node_modules, dist, build, coverage
+- `.husky/pre-commit` — fires `npx lint-staged` on every commit
+- `package.json` — lint-staged config + lint/format/prepare scripts
+- `src/senior/code-quality/01_CodeQuality.test.tsx` — 37 tests across 6 describe blocks
+- `src/senior/code-quality/CodeQualityExplainer.tsx` — visual explainer + 4 live demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| ESLint + Prettier | Static analysis rules, auto-formatting, eslint-config-prettier integration |
+| Husky + lint-staged | Pre-commit hooks, only lint staged files, auto-fix before commit |
+| Code Reviews | SRP, DRY, naming conventions, constants over magic numbers, handler naming |
+
+#### ESLint rules configured
+
+| Rule | Severity | Why |
+|------|----------|-----|
+| `react-hooks/rules-of-hooks` | error | Hooks must be at top level — never conditional |
+| `react-hooks/exhaustive-deps` | warn | All deps in useEffect arrays — prevents stale closures |
+| `react/no-array-index-key` | warn | Index keys break reconciliation on list reorder |
+| `@typescript-eslint/no-explicit-any` | warn | `any` kills TypeScript's value |
+| `eqeqeq` | error | `===` not `==` — no unexpected type coercion |
+| `no-console` | warn | Use a structured logger in production |
+| `react/jsx-no-target-blank` | error | Require `rel="noopener noreferrer"` |
+| `jsx-a11y/alt-text` | error | Images need alt text |
+
+#### Prettier key settings
+- `printWidth: 100` — wraps at 100 chars
+- `trailingComma: "es5"` — trailing commas in objects/arrays = cleaner git diffs
+- `arrowParens: "avoid"` — `x => x` not `(x) => x`
+- `semi: true`, `singleQuote: false` (double quotes)
+
+#### Husky + lint-staged pipeline
+`git commit` → Husky fires `.husky/pre-commit` → `npx lint-staged` → ESLint auto-fixes staged `.ts/.tsx` → Prettier formats → re-stages → commit saved (or blocked on errors)
+
+#### Code review patterns tested (37 tests)
+- **Pure utilities** (13 tests) — `formatCurrency`, `truncate`, `slugify`, `classNames` — extracted from components, easily unit-tested
+- **Constants + permissions** (5 tests) — `STATUS`/`ROLE` objects, `canEdit`/`canDelete`/`canPublish` logic outside JSX
+- **useCounter** (4 tests) — logic extracted to hook: increment/decrement/reset, min/max bounds
+- **usePagination** (4 tests) — totalPages, offset, first/last page guards, navigation
+- **ProductCard + StatusBadge** (5 tests) — SRP (focused component), DRY (reusable badge), `it.each` for all statuses
+- **UserAvatar** (4 tests) — naming: `isOnline` boolean prop, initials from name, size variants
+- **SearchBox** (3 tests) — `handleChange`/`handleClear` naming, `useDebounce` integration, fake timers
+
+#### Live demos (in app)
+- ESLint Rules Explorer — click any rule, toggle bad/good code, see the "why"
+- Prettier Settings — compare narrow vs wide printWidth, trailing commas, arrow parens
+- Husky Pipeline — step-through diagram of pre-commit flow
+- Code Review Patterns — SRP, DRY, naming, magic numbers (before/after toggles)
+
+---
+
 ## Git & GitHub
 - Remote: https://github.com/ajayspakcommcom/Claude-Code.git
 - Branch: `main`

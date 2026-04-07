@@ -130,9 +130,9 @@
 - ✅ Secure auth flows
 
 ### Code Quality
-- ESLint + Prettier
-- Husky + lint-staged
-- Code reviews
+- ✅ ESLint + Prettier
+- ✅ Husky + lint-staged
+- ✅ Code reviews
 
 ### Practice
 - Large-scale app

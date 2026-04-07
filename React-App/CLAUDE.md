@@ -59,7 +59,8 @@ Build and explore all React features that are **industry standard**, level by le
 - [x] Testing (Advanced) #3 — E2E (Playwright) — COMPLETE (`e2e/`)
 - [x] Accessibility — ARIA, Keyboard Navigation, Screen Readers — COMPLETE (`src/senior/accessibility/`)
 - [x] Security — XSS Prevention, CSRF Basics, Secure Auth — COMPLETE (`src/senior/security/`)
-- [ ] Code Quality #1 — ESLint + Prettier ← NEXT
+- [x] Code Quality — ESLint + Prettier, Husky + lint-staged, Code Reviews — COMPLETE (`src/senior/code-quality/`)
+- [ ] Practice — Large-scale app, Role-based access ← NEXT
 
 ---
 
