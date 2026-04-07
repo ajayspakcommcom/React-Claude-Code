@@ -125,9 +125,9 @@
 - ✅ Screen readers
 
 ### Security
-- XSS prevention
-- CSRF basics
-- Secure auth flows
+- ✅ XSS prevention
+- ✅ CSRF basics
+- ✅ Secure auth flows
 
 ### Code Quality
 - ESLint + Prettier

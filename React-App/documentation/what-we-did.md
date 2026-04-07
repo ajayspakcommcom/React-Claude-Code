@@ -1730,6 +1730,54 @@ Files:
 
 ---
 
+### ✅ Security — XSS Prevention, CSRF Basics, Secure Auth (Complete)
+
+Files:
+- `src/senior/security/01_Security.test.tsx` — 20 tests across 5 describe blocks
+- `src/senior/security/SecurityExplainer.tsx` — visual explainer + 5 live demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| XSS Prevention | React auto-escaping, `sanitize()` for `dangerouslySetInnerHTML`, `SafeLink` URL validation |
+| CSRF Defence | CSRF token in custom header, `csrfFetch` wrapper, `SameSite` cookies |
+| Secure Auth | Token in memory (not localStorage), HttpOnly cookie for refresh token, route guards |
+
+#### Key patterns
+
+**XSS:**
+- `{userInput}` in JSX is always safe — React escapes HTML entities
+- `dangerouslySetInnerHTML={{ __html: sanitized }}` — use DOMPurify in production
+- `SafeLink` — validates `href` with `new URL()`, blocks `javascript:` and `data:` protocols
+
+**CSRF:**
+- `csrfFetch` wrapper reads `csrf-token` from a readable cookie and injects it as `X-CSRF-Token` header
+- Browser auto-sends cookies but NOT custom headers — same-origin policy is what protects you
+- SPAs using `Authorization: Bearer <token>` (not cookies) are CSRF-immune
+
+**Secure Auth:**
+- Access token → React `useState` (memory only, cleared on tab close)
+- Refresh token → HttpOnly cookie set by server (JS cannot read it)
+- `RequireAuth` route guard — renders fallback when `user` is null, children once authenticated
+- Logout calls server to revoke refresh token, then clears memory state
+
+#### Test coverage (20 tests)
+- **XSS Prevention** (7 tests) — JSX escaping, `sanitize()` strips `<script>` + event handlers + `javascript:`, `SafeLink` blocks dangerous protocols, allows `https://`
+- **CSRF Defence** (3 tests) — `csrfFetch` sends `X-CSRF-Token` from cookie, server 403 without token, `credentials:"include"` verified via `jest.spyOn`
+- **Secure Auth — login flow** (5 tests) — redirect before login, dashboard after login, error on bad creds, button disabled during fetch, logout resets UI
+- **Token storage rules** (2 tests) — token never in localStorage (any key), localStorage stays empty after logout
+- **Route guard** (2 tests) — fallback renders when unauthenticated, protected content renders after login
+
+#### Live demos (in app)
+- XSS Safe vs Unsafe — toggle between safe JSX / DOMPurify pattern and dangerous `innerHTML` usage
+- URL validation — test any URL live, see safe/blocked verdict with protocol check code
+- CSRF attack flow — step-through diagram of cookie auto-send exploit + `csrfFetch` defence code
+- Token storage comparison — click each option (localStorage/sessionStorage/memory/HttpOnly) to see pros/cons
+- Auth flow diagram — Login / Token Refresh / Logout sequences with code examples
+
+---
+
 ## Git & GitHub
 - Remote: https://github.com/ajayspakcommcom/Claude-Code.git
 - Branch: `main`
