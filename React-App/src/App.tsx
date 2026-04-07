@@ -74,6 +74,7 @@ import { TeamDeskApp } from "./senior/practice/SeniorPracticeApp";
 import { InternalsExplainer } from "./expert/internals/InternalsExplainer";
 import { AdvancedRenderingExplainer } from "./expert/advanced-rendering/AdvancedRenderingExplainer";
 import { FrameworkMasteryExplainer } from "./expert/framework-mastery/FrameworkMasteryExplainer";
+import { PerformanceAtScaleExplainer } from "./expert/performance-at-scale/PerformanceAtScaleExplainer";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -262,6 +263,10 @@ const App = () => {
       <h1>Expert — Framework Mastery</h1>
       <hr />
       <section><FrameworkMasteryExplainer /></section>
+
+      <h1>Expert — Performance at Scale</h1>
+      <hr />
+      <section><PerformanceAtScaleExplainer /></section>
 
     </div>
   );
