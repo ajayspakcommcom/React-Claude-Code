@@ -1984,3 +1984,65 @@ Files:
 - **Hydration** (6 tests) — hydrateRoot attaches handlers, DOM nodes preserved (same reference), client-only values via useEffect, selective/independent Suspense islands, progressive idle hydration, suppressHydrationWarning
 - **Strategy comparison** (3 tests) — CSR empty shell, SSR content-rich HTML, SSG build-time all pages
 
+
+### ✅ Expert — Framework Mastery: Next.js App Router, Server Components, Edge Rendering (Complete)
+
+Files:
+- `src/expert/framework-mastery/01_FrameworkMastery.test.tsx` — 27 tests across 4 describe blocks
+- `src/expert/framework-mastery/FrameworkMasteryExplainer.tsx` — visual explainer + 3 tabbed demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| Next.js App Router | File conventions (page, layout, loading, error, route), dynamic/catch-all/group/parallel routes, data fetching strategies, route segment config |
+| Server Components | RSC vs Client Components, async server fetch, server→client props, `cache()` deduplication, Server Actions (`'use server'`) |
+| Edge Rendering | Edge runtime capabilities, middleware (auth, A/B, geo, rate limiting), streaming at the edge with Suspense |
+
+#### Key concepts
+
+**App Router file conventions:**
+- `page.tsx` — makes segment publicly accessible
+- `layout.tsx` — persists across navigation (state preserved)
+- `loading.tsx` — Suspense fallback (skeleton)
+- `error.tsx` — Error boundary (`'use client'` required)
+- Route groups `(group)/` — organise without URL segment
+
+**Data fetching strategies via extended `fetch()`:**
+- `{ cache: 'force-cache' }` → SSG (never refetch)
+- `{ cache: 'no-store' }` → SSR (always fresh)
+- `{ next: { revalidate: 60 } }` → ISR (stale-while-revalidate)
+- `{ next: { tags: ['posts'] } }` → tagged on-demand invalidation
+
+**React Server Components:**
+- Default in App Router — async, zero JS to client, can import DB/fs/secrets
+- Client Components — `'use client'` — full hooks/events, receives serialisable props
+- Props must be serialisable (no functions, class instances)
+
+**`cache()` deduplication:**
+- Wraps async server function — identical calls within same request share one fetch
+- Per-request scope — no cross-user data leaks
+- React 19 ships this; polyfilled for React 18 test environment
+
+**Server Actions (`'use server'`):**
+- Async functions running on the server, callable from client
+- Replace API routes for mutations
+- `revalidatePath()` / `revalidateTag()` to purge cache after mutation
+
+**Edge Runtime:**
+- V8 isolates at CDN PoPs — lower TTFB, no cold start penalty
+- Has: `fetch`, `Request`, `Response`, `Headers`, `URL`, `crypto`, `ReadableStream`
+- Does NOT have: `fs`, `path`, `net`, `os`, `child_process`, native Node modules
+
+**Middleware:**
+- Runs before every request — auth guards, A/B splits, geo blocks, rate limiting
+- Returns `redirect`, `rewrite`, or `next` (pass through with optional headers)
+
+#### Notable implementation detail
+`cache()` is a React 19 API — polyfilled in the test file using a `Map<string, Promise>` per function instance. Each test creates a fresh `cache()` instance to avoid cross-test cache poisoning.
+
+#### Test coverage (27 tests)
+- **App Router** (5 tests) — layout persists, loading.tsx Suspense skeleton, error.tsx boundary catches, try-again resets boundary, fetch caching strategy map
+- **Server Components** (8 tests) — async fetch + render, server→client interactive props, cache() deduplication, cache() different args = two fetches, Server Action create + validate, Server Action client form submit, duplicate slug error
+- **Middleware & Edge Runtime** (9 tests) — auth redirect, auth pass-through, A/B variant B rewrite, A/B variant A pass-through, geo block, rate limit headers, edge Web APIs available, Node built-ins unavailable, streaming at edge
+- **Metadata & route patterns** (5 tests) — generateMetadata known slug, not-found fallback, OpenGraph data, route segment config, parallel routes independent load

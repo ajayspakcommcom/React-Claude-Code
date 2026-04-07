@@ -157,9 +157,9 @@
 - ✅ Hydration strategies
 
 ### Framework Mastery
-- Next.js (App Router)
-- Server Components
-- Edge rendering
+- ✅ Next.js (App Router)
+- ✅ Server Components
+- ✅ Edge rendering
 
 ### Performance at Scale
 - Memory optimization
