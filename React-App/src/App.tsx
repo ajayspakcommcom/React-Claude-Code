@@ -75,6 +75,7 @@ import { InternalsExplainer } from "./expert/internals/InternalsExplainer";
 import { AdvancedRenderingExplainer } from "./expert/advanced-rendering/AdvancedRenderingExplainer";
 import { FrameworkMasteryExplainer } from "./expert/framework-mastery/FrameworkMasteryExplainer";
 import { PerformanceAtScaleExplainer } from "./expert/performance-at-scale/PerformanceAtScaleExplainer";
+import { DesignSystemsExplainer } from "./expert/design-systems/DesignSystemsExplainer";
 
 import Counter from "./beginner/practice/01_Counter";
 import TodoApp from "./beginner/practice/02_TodoApp";
@@ -267,6 +268,10 @@ const App = () => {
       <h1>Expert — Performance at Scale</h1>
       <hr />
       <section><PerformanceAtScaleExplainer /></section>
+
+      <h1>Expert — Design Systems</h1>
+      <hr />
+      <section><DesignSystemsExplainer /></section>
 
     </div>
   );
