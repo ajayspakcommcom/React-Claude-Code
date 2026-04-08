@@ -2202,3 +2202,50 @@ Files:
 - **Micro-frontends** (10 tests) — registry register/retrieve, unregistered remote error, unexposed module error, module caching (same reference), shared dep no conflict, major version conflict, shell renders remote via Suspense, event bus subscribe/receive, unsubscribe stops events, multiple subscribers
 - **CI/CD** (9 tests) — all stages pass, downstream skipped on failure, independent stages not blocked by unrelated failure, bundle pass/fail/warn, preview URL format, Lighthouse pass, Lighthouse fails with specific categories
 - **Feature flags** (12 tests) — off by default, kill switch overrides, allowlist match/miss, percentage bucket in/out, attribute eq/in operators, rule order (first match wins), unknown key = false, getAllFlags, FeatureGate shows children when on, shows fallback when off, renders nothing with no fallback
+
+### ✅ Expert — Leadership: Mentoring, Tech Decisions, RFCs & Documentation (Complete)
+
+Files:
+- `src/expert/leadership/01_Leadership.test.tsx` — 35 tests across 3 describe blocks
+- `src/expert/leadership/LeadershipExplainer.tsx` — visual explainer + 3 tabbed demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| Mentoring | Engineering levels (L1–L4), SMART goals, code review classification + scoring, pairing patterns |
+| Tech decisions | ADR model + validation, decision matrix (weighted scoring), tech debt triage (impact/effort), decision checklist |
+| RFCs & docs | RFC lifecycle + validation, Diátaxis doc types, TSDoc API docs, runbook validation |
+
+#### Key concepts
+
+**Engineering levels:** L1 (defined tasks) → L2 (feature ownership) → L3 (unblocks team, sets direction) → L4 (org-wide impact, defines standards)
+
+**Code review principles:** Specific > vague; explain WHY; prefix nits; praise good work; questions teach analysis. Comments scored on specificity + reason + type.
+
+**SMART goals:** Specific, Measurable, Achievable (scoped to a quarter), Relevant (maps to OKR), Time-bound (concrete deadline). Validated against all 5 dimensions.
+
+**ADRs:** `ADR-NNN` ID format, context/decision/consequences (must have both positive and negative). Stored in repo, immutable once accepted. Review date required.
+
+**Decision matrix:** Weighted criteria (weights sum to 1.0), options scored 1–5 per criterion. `score = Σ(score_i × weight_i)`. Highest score wins. Interactive matrix in explainer.
+
+**Tech debt triage:**
+- High impact + Low effort → do-now
+- High impact + High effort → plan
+- Low impact + Low effort → batch
+- Low impact + High effort → skip
+
+**RFC structure:** Summary → Motivation → Detailed Design → Drawbacks → Alternatives (≥2) → Unresolved Questions. Must list drawbacks honestly. Lifecycle: draft → review → accepted/rejected/revised.
+
+**Diátaxis documentation types:**
+- Tutorial (learning-oriented) — step by step for beginners
+- How-to (problem-oriented) — "how do I X?" assumes knowledge
+- Reference (information-oriented) — complete, accurate, exhaustive
+- Explanation (understanding-oriented) — concepts and "why"
+
+**Runbooks:** Symptom → causes → diagnostic steps (≥2) → remediation → escalation path → lastTestedDate. Test quarterly; store in repo.
+
+#### Test coverage (35 tests)
+- **Mentoring** (12 tests) — SMART valid/invalid, review comment classification (nit/question/praise/blocking), score specific+reasoned vs vague, praise bonus, pairing switch count balanced/unbalanced, ReviewFeedback component renders type + score
+- **Tech decisions** (15 tests) — ADR valid/bad-id/no-negatives, actionable statuses, ADRViewer component, decision matrix pick-best, weighted scores computed, debt triage all 4 quadrants, decision checklist grade A vs C/D
+- **RFCs & docs** (8 tests) — RFC valid/no-summary/too-few-alternatives/no-drawbacks, RFC next step per status, doc type classification, function doc score max/missing-params/no-example, runbook valid/missing-escalation-and-date

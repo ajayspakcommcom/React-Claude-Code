@@ -338,3 +338,4 @@ cd React-App-CodeRouter && npm run dev   # → http://localhost:5173
 | 2026-04-02 | Intermediate — Testing (Basics)    | Done   |
 - [x] Design Systems — Monorepos, Versioned component libraries, Theming & tokens — COMPLETE (`src/expert/design-systems/`)
 - [x] Frontend System Design — Micro-frontends, CI/CD, Feature flags — COMPLETE (`src/expert/frontend-system-design/`)
+- [x] Leadership — Mentoring, Tech decisions, RFCs & documentation — COMPLETE (`src/expert/leadership/`)

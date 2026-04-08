@@ -177,9 +177,9 @@
 - ✅ Feature flags
 
 ### Leadership
-- Mentoring
-- Tech decisions
-- RFCs & documentation
+- ✅ Mentoring
+- ✅ Tech decisions
+- ✅ RFCs & documentation
 
 ### Practice
 - OSS contributions
