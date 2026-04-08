@@ -172,9 +172,9 @@
 - ✅ Theming & tokens
 
 ### Frontend System Design
-- Micro-frontends (Module Federation)
-- CI/CD for frontend
-- Feature flags
+- ✅ Micro-frontends (Module Federation)
+- ✅ CI/CD for frontend
+- ✅ Feature flags
 
 ### Leadership
 - Mentoring

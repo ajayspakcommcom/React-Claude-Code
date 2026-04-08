@@ -2157,3 +2157,48 @@ Files:
 - **Monorepo** (6 tests) — token change affects ui/web/docs not api, utils change affects api/ui/web, leaf change = only itself, topological order correct, Turborepo: all cached on second run, changed hash = only that package rebuilt
 - **Component library** (13 tests) — parse semver, parse with pre-release, patch/minor/major bump, breaking/backward-compatible detection, changeset highest-bump-wins, changeset only bumps listed packages, tree-shaking eliminates unused (no side effects), tree-shaking keeps side-effectful exports
 - **Theming** (10 tests) — ThemeProvider sets data-theme, light token values, dark switch updates tokens, high-contrast tokens, Button primary color, Button danger color, Button reflects dark theme after switch, Card uses surface/border tokens, Badge success color, CSS vars generated correctly, dark vars differ from light (spacing same)
+
+### ✅ Expert — Frontend System Design: Micro-frontends, CI/CD, Feature Flags (Complete)
+
+Files:
+- `src/expert/frontend-system-design/01_FrontendSystemDesign.test.tsx` — 31 tests across 3 describe blocks
+- `src/expert/frontend-system-design/FrontendSystemDesignExplainer.tsx` — visual explainer + 3 tabbed demos
+
+#### Three Topics
+
+| Topic | What it covers |
+|-------|---------------|
+| Micro-frontends | Module Federation registry, remote loading, shared singletons, version negotiation, cross-MFE event bus |
+| CI/CD | Pipeline stage model (needs/skip cascade), bundle size guard, preview deployments, Lighthouse CI |
+| Feature flags | Flag types, evaluation engine (allowlist/percentage/attribute), FeatureGate component, flag lifecycle |
+
+#### Key concepts
+
+**Module Federation:**
+- Remote exposes modules via `remoteEntry.js`; host fetches at runtime from CDN URL
+- Shared singletons (`react: { singleton: true }`) prevent duplicate React copies
+- Version negotiation at runtime — major version mismatch = conflict
+- Shell uses `React.lazy(() => import('remote/Widget'))` + `<Suspense>` for loading state
+- Cross-MFE state: event bus (pub/sub), URL params — no shared Redux store
+
+**CI/CD pipeline:**
+- Stages declare `needs: []` — downstream stages auto-skip when upstream fails
+- Independent stages (type-check, test) run in parallel; both must pass for build
+- Bundle size guard: key by gzip budget, fail/warn/pass per threshold
+- Preview URLs: branch name + PR id → unique CDN URL per PR
+- Lighthouse CI: assert score thresholds in CI — block PR on performance/a11y regression
+
+**Feature flags:**
+- Flag types: release (hide unfinished), experiment (A/B), ops/kill-switch, permission
+- Rule evaluation order: allowlist → percentage → attribute → default
+- First match wins; master `enabled: false` kills the flag regardless of rules
+- Percentage rollout: user ID hashed to stable 0–99 bucket — consistent experience
+- Lifecycle: create → internal → canary → progressive rollout → **remove flag** (critical)
+
+#### Notable implementation detail
+`FeatureGate` renders `null` (not fallback) when flag is disabled and no fallback prop given — confirmed with `toBeEmptyDOMElement()`.
+
+#### Test coverage (31 tests)
+- **Micro-frontends** (10 tests) — registry register/retrieve, unregistered remote error, unexposed module error, module caching (same reference), shared dep no conflict, major version conflict, shell renders remote via Suspense, event bus subscribe/receive, unsubscribe stops events, multiple subscribers
+- **CI/CD** (9 tests) — all stages pass, downstream skipped on failure, independent stages not blocked by unrelated failure, bundle pass/fail/warn, preview URL format, Lighthouse pass, Lighthouse fails with specific categories
+- **Feature flags** (12 tests) — off by default, kill switch overrides, allowlist match/miss, percentage bucket in/out, attribute eq/in operators, rule order (first match wins), unknown key = false, getAllFlags, FeatureGate shows children when on, shows fallback when off, renders nothing with no fallback
